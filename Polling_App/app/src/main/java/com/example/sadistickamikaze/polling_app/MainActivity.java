@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Button FilterButton = (Button)findViewById(R.id.FilterButton);
+        Button NewPollButton = (Button)findViewById(R.id.NewPollButton);
 
         FilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,6 +110,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                 );
                 Intent startIntent = new Intent(getApplicationContext(), FilterButton.class);
+                startActivity(startIntent);
+            }
+        });
+        NewPollButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent startIntent = new Intent(getApplicationContext(), CreatePoll.class);
                 startActivity(startIntent);
             }
         });
