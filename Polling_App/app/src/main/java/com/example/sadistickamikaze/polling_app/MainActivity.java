@@ -1,5 +1,6 @@
 package com.example.sadistickamikaze.polling_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -52,7 +53,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        test=0;
+        String[] pollList;
+        Long[] yesList;
+        Long[] noList;
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -84,7 +87,19 @@ public class MainActivity extends AppCompatActivity {
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                getPollResults((Map<String, Object>) dataSnapshot.getValue());
+                                String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
+                                Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
+                                Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                                String name;
+                                Long yesCount;
+                                Long noCount;
+                                for(int i=0; i<names.length; i++){
+                                    name = names[i];
+                                    yesCount=yes[i];
+                                    noCount=no[i];
+                                    Log.d("Poll Info", name+": Yes="+yesCount
+                                    +", No="+noCount);
+                                }
                             }
 
                             @Override
@@ -99,21 +114,81 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private void getPollResults(Map<String, Object> polls) {
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+    private Long[] getNoPollCount(Map<String, Object> polls){
         ArrayList<Long> noCount = new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            yesCount.add((Long) poll.get("yes"));
             noCount.add((Long) poll.get("no"));
-            Log.d("Yes: ", yesCount.toString());
-            Log.d("No: ", noCount.toString());
         }
+        return (Long[]) noCount.toArray(new Long[0]);
     }
-    
+    private Long[] getYesPollCount(Map<String, Object> polls){
+        ArrayList<Long> yesCount = new ArrayList<Long>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            yesCount.add((Long) poll.get("yes"));
+        }
+        return (Long[]) yesCount.toArray(new Long[0]);
+    }
+
+    private String[] getPollNames(Map<String, Object> polls){
+        ArrayList<String> pollList = new ArrayList<String>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            pollList.add(entry.getKey());
+        }
+        return (String[])pollList.toArray(new String[0]);
+    }
+
     public void newPoll(View v){
         Intent info = new Intent(this, CreatePoll.class);
         startActivity(info);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
+        pollReference.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        String name;
+                        Long yesCount;
+                        Long noCount;
+                        for(int i=0; i<names.length; i++){
+                            name = names[i];
+                            yesCount=yes[i];
+                            noCount=no[i];
+
+                        }
+                        LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
+                        Context context = getApplicationContext();
+                        for(int i=0;i<names.length;i++){
+                            Button pollButton = new Button(context);
+                            pollButton.setId(i);
+                            pollButton.setText(names[i]);
+                            layout.addView(pollButton);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                }
+        );
+
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
+        layout.removeAllViewsInLayout();
     }
 
     // Creates new button
