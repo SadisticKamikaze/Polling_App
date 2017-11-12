@@ -56,20 +56,6 @@ public class MainActivity extends AppCompatActivity {
         password=Long.valueOf(0);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
-                //String value = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("Key:0000", "Failed to read value.", error.toException());
-            }
-        });
 
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -108,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-    private Long[] getPasswords(Map<String, Object> polls){
+    private Long[] getPasswords(Map<String, Object> polls){ //puts passwords into a long array by iterating though all polls
         ArrayList<Long> passwords= new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -116,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return (Long[])  passwords.toArray(new Long[0]);
     }
-    private Long[] getNoPollCount(Map<String, Object> polls){
+    private Long[] getNoPollCount(Map<String, Object> polls){ //puts nos into a long array by iterating though all polls
         ArrayList<Long> noCount = new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -124,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return (Long[]) noCount.toArray(new Long[0]);
     }
-    private Long[] getYesPollCount(Map<String, Object> polls){
+    private Long[] getYesPollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
         ArrayList<Long> yesCount = new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -133,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
 
-    private String[] getPollNames(Map<String, Object> polls){
+    private String[] getPollNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
         ArrayList<String> pollList = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -155,15 +141,15 @@ public class MainActivity extends AppCompatActivity {
                 new ValueEventListener() {
 
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
+                    public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
+                        String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
                         Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
-                            if(passwords[i]==password) {
+                            if(passwords[i]==password) { //if passwords match, make a button with the name of the poll
                                 Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
@@ -182,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onPause(){
+    public void onPause(){ //stops duplicates being created when page refreshes
         super.onPause();
         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
         layout.removeAllViewsInLayout();
