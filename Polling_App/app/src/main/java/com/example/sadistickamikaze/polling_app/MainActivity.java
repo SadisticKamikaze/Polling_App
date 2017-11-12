@@ -148,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
+        final DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
         pollReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
@@ -156,15 +156,6 @@ public class MainActivity extends AppCompatActivity {
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
                         Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
-                        String name;
-                        Long yesCount;
-                        Long noCount;
-                        for(int i=0; i<names.length; i++){
-                            name = names[i];
-                            yesCount=yes[i];
-                            noCount=no[i];
-
-                        }
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
