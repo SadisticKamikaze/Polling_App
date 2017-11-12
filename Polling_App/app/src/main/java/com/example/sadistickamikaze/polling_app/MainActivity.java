@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private int i;
+    Long password;
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -53,9 +53,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] pollList;
-        Long[] yesList;
-        Long[] noList;
+        password=Long.valueOf(0);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
         myRef.addValueEventListener(new ValueEventListener() {
@@ -88,19 +86,6 @@ public class MainActivity extends AppCompatActivity {
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
-                                Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
-                                Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
-                                String name;
-                                Long yesCount;
-                                Long noCount;
-                                for(int i=0; i<names.length; i++){
-                                    name = names[i];
-                                    yesCount=yes[i];
-                                    noCount=no[i];
-                                    Log.d("Poll Info", name+": Yes="+yesCount
-                                    +", No="+noCount);
-                                }
                             }
 
                             @Override
@@ -122,6 +107,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private Long[] getPasswords(Map<String, Object> polls){
+        ArrayList<Long> passwords= new ArrayList<Long>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            passwords.add((Long) poll.get("password"));
+        }
+        return (Long[])  passwords.toArray(new Long[0]);
     }
     private Long[] getNoPollCount(Map<String, Object> polls){
         ArrayList<Long> noCount = new ArrayList<Long>();
@@ -160,18 +153,22 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
         pollReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
+
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue());
                         Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
-                            Button pollButton = new Button(context);
-                            pollButton.setId(i);
-                            pollButton.setText(names[i]);
-                            layout.addView(pollButton);
+                            if(passwords[i]==password) {
+                                Button pollButton = new Button(context);
+                                pollButton.setId(i);
+                                pollButton.setText(names[i]);
+                                layout.addView(pollButton);
+                            }
                         }
                     }
 
