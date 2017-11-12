@@ -19,6 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".FilterButton"></activity>
+        <activity android:name=".CreatePoll"></activity>
     </application>
 
 </manifest>
