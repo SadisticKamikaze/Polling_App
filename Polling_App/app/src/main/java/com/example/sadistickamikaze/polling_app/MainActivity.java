@@ -18,6 +18,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
@@ -54,7 +57,6 @@ public class MainActivity extends AppCompatActivity {
                 // This method is called once with the initial value and again
                 // whenever data at this location is updated.
                 //String value = dataSnapshot.getValue(String.class);
-                Log.d("Key:0000", "Value is: ");
             }
 
             @Override
@@ -72,16 +74,36 @@ public class MainActivity extends AppCompatActivity {
         FilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child("Polls").child("TestPoll").child(""+test+"").setValue(test+1);
-                Log.d(myRef.child("Polls").toString(), "test");
-                test++;
+                DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
+                pollReference.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                getPollResults((Map<String, Object>) dataSnapshot.getValue());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
                 Intent startIntent = new Intent(getApplicationContext(), FilterButton.class);
                 startActivity(startIntent);
             }
         });
 
-
-
+    }
+    private void getPollResults(Map<String, Object> polls) {
+        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> noCount = new ArrayList<Long>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            yesCount.add((Long) poll.get("yes"));
+            noCount.add((Long) poll.get("no"));
+            Log.d("Yes: ", yesCount.toString());
+            Log.d("No: ", noCount.toString());
+        }
     }
 
 }
