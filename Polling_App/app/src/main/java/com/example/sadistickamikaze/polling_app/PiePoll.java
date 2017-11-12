@@ -4,7 +4,10 @@ import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.view.View;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -17,22 +20,31 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 
 public class PiePoll extends AppCompatActivity {
-    private String TAG = "PiePoll";
-    private float[] yData= {2.0f, 1.0f};
-    private String[] xData = {"Yes" , "No"};
-    private String pollName = "TBD";
-    private String description = "Some Description";
-    private String centerName = "Some Center name";
-
-    ArrayList<Integer> colors = new ArrayList<>();
-    ArrayList<PieEntry> yEntrys = new ArrayList<>();
-    ArrayList<String> xEntrys = new ArrayList<>();
+    public String TAG;
+    public float[] yData={2.0f, 1.0f};;
+    public String[] xData={"Yes" , "No"};
+    public String pollName;
+    public String description ;
+    public String centerName;
+    ArrayList<Integer> colors;
+    ArrayList<PieEntry> yEntrys;
+    ArrayList<String> xEntrys;
     PieChart pieChart;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_poll);
+        TAG = "PiePoll";
+        pollName = "TBD";
+        description = "Some Description";
+        centerName = "Some Center name";
+        ArrayList<Integer> colors = new ArrayList<>();
+        ArrayList<PieEntry> yEntrys = new ArrayList<>();
+        ArrayList<String> xEntrys = new ArrayList<>();
         pieChart = (PieChart) findViewById(R.id.PiePoll);
         // pieChart.setDescription("Hello World");
         pieChart.setRotationEnabled(true);
