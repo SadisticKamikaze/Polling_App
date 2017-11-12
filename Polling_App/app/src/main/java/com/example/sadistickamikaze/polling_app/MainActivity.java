@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -19,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
-
+    private int i;
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -28,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Button FilterButton = (Button)findViewById(R.id.FilterButton);
+            Button NewPollButton = (Button)findViewById(R.id.NewPollButton);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     FilterButton.setVisibility(View.VISIBLE);
+                    NewPollButton.setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_notifications:
                     FilterButton.setVisibility(View.GONE);
+                    NewPollButton.setVisibility(View.GONE);
                     return true;
             }
             return false;
@@ -69,12 +73,13 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Button FilterButton = (Button)findViewById(R.id.FilterButton);
+
         FilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                myRef.child("Polls").child("TestPoll").child(""+test+"").setValue(test+1);
-                Log.d(myRef.child("Polls").toString(), "test");
-                test++;
+               // myRef.child("Polls").child("TestPoll").child(""+test+"").setValue(test+1);
+          //      Log.d(myRef.child("Polls").toString(), "test");
+           //     test++;
                 Intent startIntent = new Intent(getApplicationContext(), FilterButton.class);
                 startActivity(startIntent);
             }
@@ -82,6 +87,22 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
     }
+
+
+    public void newPoll(View v){
+        Intent info = new Intent(this, CreatePoll.class);
+        startActivity(info);
+    }
+
+    // Creates new button
+    // LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
+    // i++;
+    // Button pollButton = new Button(this);
+    // pollButton.setId(i);
+    // pollButton.setText("Hello World");
+    //  layout.addView(pollButton);
 
 }
