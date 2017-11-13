@@ -18,8 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FilterButton"></activity>
-        <activity android:name=".CreatePoll"></activity>
+        <activity android:name=".FilterButton" />
+        <activity android:name=".CreatePoll" />
+        <activity android:name=".viewpoll"></activity>
     </application>
 
 </manifest>

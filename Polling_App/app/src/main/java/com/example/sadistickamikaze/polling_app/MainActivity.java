@@ -143,17 +143,32 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
-                        Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
-                        Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        final Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        final Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
                             if(passwords[i]==password) { //if passwords match, make a button with the name of the poll
-                                Button pollButton = new Button(context);
+                                final Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
                                 layout.addView(pollButton);
+                                pollButton.setOnClickListener(new View.OnClickListener() {
+                                    int j=0;
+                                    int k=1;
+                                    int l=2;
+                                    @Override
+                                    public void onClick(View v) {
+
+                                        Intent startIntent = new Intent(getApplicationContext(), viewpoll.class);
+                                        startIntent.putExtra(""+j+"", (String)pollButton.getText());
+                                        startIntent.putExtra(""+k+"", "Yes: "+yes[0].toString());
+                                        startIntent.putExtra(""+l+"", "No: "+no[0].toString());
+                                        startActivity(startIntent);
+                                        j++;
+                                    }
+                                });
                             }
                         }
                     }
