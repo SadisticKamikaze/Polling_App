@@ -24,16 +24,23 @@ public class CreatePoll extends AppCompatActivity {
 
             EditText pollquestion = (EditText)findViewById(R.id.question);
             EditText option1answer = (EditText)findViewById(R.id.option1answer);
-            EditText option2answer = (EditText)findViewById(R.id.option2answer);
+            //EditText option2answer = (EditText)findViewById(R.id.option2answer);
 
             @Override
             public void onClick(View v) {
-
+                Long password=Long.valueOf(0);
                 String string = pollquestion.getText().toString();
-                String string2 = option1answer.getText().toString();
-                String string3 = option2answer.getText().toString();
-                myref.child(string).child(string2).setValue("0");
-                myref.child(string).child(string3).setValue("0");
+                if(option1answer.getText().toString().matches("")==false){
+                    password = Long.parseLong(option1answer.getText().toString());
+                }
+                //String string3 = option2answer.getText().toString();
+                myref.child(string).child("yes").setValue(0);
+                myref.child(string).child("no").setValue(0);
+                myref.child(string).child("password").setValue(0);
+                if(password>0){
+                    myref.child(string).child("password").setValue(password);
+                }
+
 
 
                 finish();
