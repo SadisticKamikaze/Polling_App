@@ -191,12 +191,6 @@ public class MainActivity extends AppCompatActivity {
         layout.removeAllViewsInLayout();
     }
 
-    // Creates new button
-    // LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
-    // i++;
-    // Button pollButton = new Button(this);
-    // pollButton.setId(i);
-    // pollButton.setText("Hello World");
-    //  layout.addView(pollButton);
+
 
 }

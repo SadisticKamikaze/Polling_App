@@ -3,9 +3,11 @@ package com.example.sadistickamikaze.polling_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -56,5 +58,22 @@ public class viewpoll extends AppCompatActivity {
                 finish();
             }
         });
+
     }
+
+
+    public void displayPoll(View view){
+        PiePoll piePoll = new PiePoll();
+
+        Log.d("opt 1", opt1.toString());
+        Log.d("opt 1", opt2.toString());
+        Intent intent = new Intent(getApplicationContext(), PiePoll.class);
+        intent.putExtra("a",opt1);
+        intent.putExtra("b",opt2);
+       // piePoll.addVotes(opt1);
+       //  piePoll.addVotes(opt2);
+        startActivity(intent);
+    }
+
+
 }

@@ -20,7 +20,9 @@
         </activity>
         <activity android:name=".FilterButton" />
         <activity android:name=".CreatePoll" />
-        <activity android:name=".viewpoll"></activity>
+        <activity android:name=".viewpoll" />
+        <activity android:name=".PiePoll"></activity>
+        <activity android:name=".test"></activity>
     </application>
 
 </manifest>
