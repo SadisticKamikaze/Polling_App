@@ -3,10 +3,17 @@ package com.example.sadistickamikaze.polling_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-public class viewpoll extends AppCompatActivity {
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+public class viewpoll extends AppCompatActivity {
+    final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Polls");
+    String name;
+    Long opt1;
+    Long opt2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +28,24 @@ public class viewpoll extends AppCompatActivity {
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
         questionname.setText((String)b.get(""+j+""));
+        name=(String)b.get(""+j+"");
         option1buttonname.setText((String)b.get(""+k+""));
+        opt1= Long.parseLong(((String)b.get(""+k+"")).replaceAll("[^0-9]","")); //strips the option name and leaves numbers, then convert into Long
         option2buttonname.setText((String)b.get(""+l+""));
+        opt2= Long.parseLong(((String)b.get(""+l+"")).replaceAll("[^0-9]",""));
+        option1buttonname.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                myref.child(name).child("yes").setValue(opt1+Long.valueOf(1));  //increments poll value here
+                finish();
+            }
+        });
+        option2buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myref.child(name).child("no").setValue(opt2+Long.valueOf(1));
+                finish();
+            }
+        });
     }
 }
