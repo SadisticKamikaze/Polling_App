@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     static Long password;
     private TextView mTextMessage;
 
+
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -143,8 +144,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
-                        final Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
-                        final Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
@@ -154,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
                                 layout.addView(pollButton);
+                                final long p = yes[i];
+                                final long u = no[i];
                                 pollButton.setOnClickListener(new View.OnClickListener() {
                                     int j=0;
                                     int k=1;
@@ -163,10 +166,9 @@ public class MainActivity extends AppCompatActivity {
 
                                         Intent startIntent = new Intent(getApplicationContext(), viewpoll.class);
                                         startIntent.putExtra(""+j+"", (String)pollButton.getText());
-                                        startIntent.putExtra(""+k+"", "Yes: "+yes[0].toString());
-                                        startIntent.putExtra(""+l+"", "No: "+no[0].toString());
+                                        startIntent.putExtra(""+k+"", "Yes: "+Integer.toString((int)p));
+                                        startIntent.putExtra(""+l+"", "No: "+Integer.toString((int)u));
                                         startActivity(startIntent);
-                                        j++;
                                     }
                                 });
                             }
