@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
@@ -44,6 +45,14 @@ public class viewpoll extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 myref.child(name).child("no").setValue(opt2+Long.valueOf(1));
+                finish();
+            }
+        });
+        Button ApplyButton = (Button)findViewById(R.id.donebutton);
+        ApplyButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
                 finish();
             }
         });

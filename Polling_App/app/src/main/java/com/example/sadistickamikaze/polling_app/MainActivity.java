@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    Long password;
+    static Long password;
     private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
