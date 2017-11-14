@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -30,6 +31,7 @@ public class viewpoll extends AppCompatActivity {
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
+        EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
         questionname.setText((String)b.get(""+j+""));
