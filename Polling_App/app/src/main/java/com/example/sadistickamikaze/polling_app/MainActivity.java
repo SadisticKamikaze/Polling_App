@@ -103,6 +103,14 @@ public class MainActivity extends AppCompatActivity {
         }
         return (Long[])  passwords.toArray(new Long[0]);
     }
+    private Long[] getDeletePasswords(Map<String, Object> polls){ //puts delete passwords into a long array by iterating though all polls
+        ArrayList<Long> passwords= new ArrayList<Long>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            passwords.add((Long) poll.get("delete"));
+        }
+        return (Long[])  passwords.toArray(new Long[0]);
+    }
     private Long[] getNoPollCount(Map<String, Object> polls){ //puts nos into a long array by iterating though all polls
         ArrayList<Long> noCount = new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
@@ -147,6 +155,7 @@ public class MainActivity extends AppCompatActivity {
                         Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
+                        Long[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
@@ -157,10 +166,12 @@ public class MainActivity extends AppCompatActivity {
                                 layout.addView(pollButton);
                                 final long p = yes[i];
                                 final long u = no[i];
+                                final long del = delete[i];
                                 pollButton.setOnClickListener(new View.OnClickListener() {
                                     int j=0;
                                     int k=1;
                                     int l=2;
+                                    int m=3;
                                     @Override
                                     public void onClick(View v) {
 
@@ -168,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                         startIntent.putExtra(""+j+"", (String)pollButton.getText());
                                         startIntent.putExtra(""+k+"", "Yes: "+Integer.toString((int)p));
                                         startIntent.putExtra(""+l+"", "No: "+Integer.toString((int)u));
+                                        startIntent.putExtra(""+m+"", Integer.toString((int)del));
                                         startActivity(startIntent);
                                     }
                                 });

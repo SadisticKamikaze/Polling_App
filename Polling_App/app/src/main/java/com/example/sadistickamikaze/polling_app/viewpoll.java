@@ -15,6 +15,7 @@ public class viewpoll extends AppCompatActivity {
     String name;
     Long opt1;
     Long opt2;
+    Long del;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +24,7 @@ public class viewpoll extends AppCompatActivity {
         int j = 0;
         int k = 1;
         int l = 2;
+        int m = 3;
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
@@ -34,6 +36,7 @@ public class viewpoll extends AppCompatActivity {
         opt1= Long.parseLong(((String)b.get(""+k+"")).replaceAll("[^0-9]","")); //strips the option name and leaves numbers, then convert into Long
         option2buttonname.setText((String)b.get(""+l+""));
         opt2= Long.parseLong(((String)b.get(""+l+"")).replaceAll("[^0-9]",""));
+        del = Long.parseLong(((String)b.get(""+m+"")).replaceAll("[^0-9]",""));
         option1buttonname.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
