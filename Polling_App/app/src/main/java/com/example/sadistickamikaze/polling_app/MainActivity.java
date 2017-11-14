@@ -104,12 +104,12 @@ public class MainActivity extends AppCompatActivity {
         return (Long[])  passwords.toArray(new Long[0]);
     }
     private Long[] getDeletePasswords(Map<String, Object> polls){ //puts delete passwords into a long array by iterating though all polls
-        ArrayList<Long> passwords= new ArrayList<Long>();
+        ArrayList<Long> deletepasswords= new ArrayList<Long>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            passwords.add((Long) poll.get("delete"));
+            deletepasswords.add((Long) poll.get("delete"));
         }
-        return (Long[])  passwords.toArray(new Long[0]);
+        return (Long[])  deletepasswords.toArray(new Long[0]);
     }
     private Long[] getNoPollCount(Map<String, Object> polls){ //puts nos into a long array by iterating though all polls
         ArrayList<Long> noCount = new ArrayList<Long>();

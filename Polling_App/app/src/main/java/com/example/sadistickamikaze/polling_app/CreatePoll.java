@@ -35,7 +35,7 @@ public class CreatePoll extends AppCompatActivity {
                     password = Long.parseLong(option1answer.getText().toString());
                 }
                 if(option2answer.getText().toString().matches("")==false){
-                    delete = Long.parseLong(option1answer.getText().toString());
+                    delete = Long.parseLong(option2answer.getText().toString());
                 }
                 myref.child(string).child("yes").setValue(0);
                 myref.child(string).child("no").setValue(0);

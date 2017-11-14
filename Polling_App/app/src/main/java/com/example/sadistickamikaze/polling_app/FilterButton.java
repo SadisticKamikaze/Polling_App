@@ -26,7 +26,9 @@ public class FilterButton extends AppCompatActivity {
                 if(string != null) {
                     password = Long.valueOf(string);
                 }
-
+                else{
+                    password = Long.valueOf(0);
+                }
                 finish();
             }
         });
