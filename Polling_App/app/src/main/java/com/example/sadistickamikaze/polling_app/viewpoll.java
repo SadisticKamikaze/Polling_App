@@ -31,7 +31,7 @@ public class viewpoll extends AppCompatActivity {
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
-        EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
+        final EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
         questionname.setText((String)b.get(""+j+""));
@@ -60,7 +60,13 @@ public class viewpoll extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                finish();
+                String delpass=deletepassword.getText().toString();
+                if(delpass.matches("")==false){
+                    if(Long.parseLong(delpass)==del) {
+                        myref.child(name).removeValue();
+                        finish();
+                    }
+                }
             }
         });
 
