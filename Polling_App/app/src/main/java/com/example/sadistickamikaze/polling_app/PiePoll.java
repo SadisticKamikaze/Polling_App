@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
+
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -20,16 +22,26 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 
 public class PiePoll extends AppCompatActivity {
+
     public String TAG;
-    public float[] yData={2.0f, 1.0f};;
-    public String[] xData={"Yes" , "No"};
+    public ArrayList<Long> yData;
+    public ArrayList<String> xData;
     public String pollName;
-    public String description ;
+    public String description;
     public String centerName;
-    ArrayList<Integer> colors;
-    ArrayList<PieEntry> yEntrys;
-    ArrayList<String> xEntrys;
+    public ArrayList<Integer> colors;
+    public ArrayList<PieEntry> yEntrys;
+    public ArrayList<String> xEntrys;
     PieChart pieChart;
+
+    public PiePoll() {
+        yData = new ArrayList<>();
+        xData = new ArrayList<>();
+        yEntrys = new ArrayList<>();
+        xEntrys = new ArrayList<>();
+        colors = new ArrayList<>();
+    }
+
 
 
 
@@ -38,19 +50,26 @@ public class PiePoll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_poll);
+
+
+
         TAG = "PiePoll";
         pollName = "TBD";
         description = "Some Description";
         centerName = "Some Center name";
-        ArrayList<Integer> colors = new ArrayList<>();
-        ArrayList<PieEntry> yEntrys = new ArrayList<>();
-        ArrayList<String> xEntrys = new ArrayList<>();
+        xData.add("Yes");
+        xData.add("No");
         pieChart = (PieChart) findViewById(R.id.PiePoll);
         // pieChart.setDescription("Hello World");
         pieChart.setRotationEnabled(true);
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setHoleRadius(25);
         pieChart.setDrawEntryLabels(true);
+        Intent iin= getIntent();
+        Bundle b = iin.getExtras();
+        yData.add((long)b.get("a"));
+        yData.add((long)b.get("b"));
+        Log.d("something",yData.toString() );
         addDataset();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -61,19 +80,9 @@ public class PiePoll extends AppCompatActivity {
                 Log.d(TAG, "onvalueSelected: " + e.toString());
                 Log.d(TAG, "onValueSelected: "+ h.toString());
 
-/*                int vote = e.toString().indexOf("Entry: ");
-                String numberVotes= e.toString().substring(vote);
-
-                for (int i=0;  i<yData.length; i++){
-                    if(yData[i] == Float.parseFloat(numberVotes)){
-                        vote=i;
-                        break;
-                    }
-                }
-
-                String response = xData[vote];
-                Toast.makeText(PiePoll.this, "Response: " + response + "\n" + "Votes: " +numberVotes, Toast.LENGTH_SHORT).show();
-*/
+                int index = Math.round(h.getX());
+                String answer = xData.get(index);
+                Toast.makeText(PiePoll.this, "Response: " +answer+ "\n" + "Number of Votes: "  +h.getY() , Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -85,12 +94,13 @@ public class PiePoll extends AppCompatActivity {
     }
     private void addDataset(){
 
-        for (int i =0; i < yData.length; i++){
-            yEntrys.add(new PieEntry(yData[i]));
+        for (int i =0; i < yData.size(); i++){
+            Log.d("something",yData.get(i).toString() );
+            yEntrys.add(new PieEntry(yData.get(i)));
         }
 
-        for (int i=0; i<xData.length; i++){
-            xEntrys.add(xData[i]);
+        for (int i=0; i<xData.size(); i++){
+            xEntrys.add(xData.get(i));
         }
 
 
@@ -101,8 +111,8 @@ public class PiePoll extends AppCompatActivity {
 
 
         // Add colors
-        colors.add(Color.RED);
         colors.add(Color.GREEN);
+        colors.add(Color.RED);
         pieDataSet.setColors(colors);
 
         //add legend to chart
@@ -115,5 +125,12 @@ public class PiePoll extends AppCompatActivity {
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
         pieChart.invalidate();
+
     }
+
+    public void addVotes (long l){
+        yData.add(l);
+    }
+
+
 }
