@@ -9,7 +9,20 @@
 
 
     <Button
-        android:id="@+id/NewPollButton"
+        android:id="@+id/refreshButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="newPoll"
+        android:text="REFRESH"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/newPollButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -30,8 +43,6 @@
         android:layout_height="wrap_content"
         android:text="Filter"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
-
-
 
 
     <android.support.design.widget.BottomNavigationView

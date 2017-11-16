@@ -34,15 +34,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Button FilterButton = (Button)findViewById(R.id.FilterButton);
-            Button NewPollButton = (Button)findViewById(R.id.NewPollButton);
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     FilterButton.setVisibility(View.VISIBLE);
-                    NewPollButton.setVisibility(View.VISIBLE);
                     return true;
                 case R.id.navigation_notifications:
                     FilterButton.setVisibility(View.GONE);
-                    NewPollButton.setVisibility(View.GONE);
                     return true;
             }
             return false;
@@ -57,13 +54,11 @@ public class MainActivity extends AppCompatActivity {
         password=Long.valueOf(0);
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
-
-
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Button FilterButton = (Button)findViewById(R.id.FilterButton);
-        Button NewPollButton = (Button)findViewById(R.id.NewPollButton);
+        Button RefreshButton = (Button)findViewById(R.id.refreshButton);
 
         FilterButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -85,12 +80,58 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(startIntent);
             }
         });
-        NewPollButton.setOnClickListener(new View.OnClickListener() {
+        RefreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
+                layout.removeAllViewsInLayout();
+                DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
+                pollReference.addListenerForSingleValueEvent(
+                        new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
+                                String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
+                                Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
+                                Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
+                                Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
+                                Long[] delete = getDeletePasswords((Map<String, Object>) dataSnapshot.getValue());
+                                LinearLayout layout = (LinearLayout) findViewById((R.id.ButtonLayout));
+                                Context context = getApplicationContext();
+                                for (int i = 0; i < names.length; i++) {
+                                    if (passwords[i] == password) { //if passwords match, make a button with the name of the poll
+                                        final Button pollButton = new Button(context);
+                                        pollButton.setId(i);
+                                        pollButton.setText(names[i]);
+                                        layout.addView(pollButton);
+                                        final long p = yes[i];
+                                        final long u = no[i];
+                                        final long del = delete[i];
+                                        pollButton.setOnClickListener(new View.OnClickListener() {
+                                            int j = 0;
+                                            int k = 1;
+                                            int l = 2;
+                                            int m = 3;
 
-                Intent startIntent = new Intent(getApplicationContext(), CreatePoll.class);
-                startActivity(startIntent);
+                                            @Override
+                                            public void onClick(View v) {
+                                                Intent startIntent = new Intent(getApplicationContext(), viewpoll.class);
+                                                startIntent.putExtra("" + j + "", (String) pollButton.getText());
+                                                startIntent.putExtra("" + k + "", "Yes: " + Integer.toString((int) p));
+                                                startIntent.putExtra("" + l + "", "No: " + Integer.toString((int) u));
+                                                startIntent.putExtra("" + m + "", Integer.toString((int) del));
+                                                startActivity(startIntent);
+                                            }
+                                        });
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        }
+                );
             }
         });
 
@@ -148,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
         pollReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
-
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
@@ -174,7 +214,6 @@ public class MainActivity extends AppCompatActivity {
                                     int m=3;
                                     @Override
                                     public void onClick(View v) {
-
                                         Intent startIntent = new Intent(getApplicationContext(), viewpoll.class);
                                         startIntent.putExtra(""+j+"", (String)pollButton.getText());
                                         startIntent.putExtra(""+k+"", "Yes: "+Integer.toString((int)p));
@@ -186,7 +225,6 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
@@ -202,7 +240,4 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
         layout.removeAllViewsInLayout();
     }
-
-
-
 }
