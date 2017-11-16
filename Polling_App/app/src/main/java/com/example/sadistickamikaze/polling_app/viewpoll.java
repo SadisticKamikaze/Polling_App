@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.w3c.dom.Text;
+
 public class viewpoll extends AppCompatActivity {
     final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Polls");
     String name;
@@ -23,7 +25,8 @@ public class viewpoll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
-
+        TextView voterIDField = (TextView) findViewById(R.id.VoterID);
+        String voterID = voterIDField.getText().toString();
         int j = 0;
         int k = 1;
         int l = 2;
