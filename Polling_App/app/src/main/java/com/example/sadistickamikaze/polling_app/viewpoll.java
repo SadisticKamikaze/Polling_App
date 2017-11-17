@@ -21,16 +21,20 @@ public class viewpoll extends AppCompatActivity {
     Long opt1;
     Long opt2;
     Long del;
+    String yesnames;
+    String nonames;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
-        TextView voterIDField = (TextView) findViewById(R.id.VoterID);
-        String voterID = voterIDField.getText().toString();
         int j = 0;
         int k = 1;
         int l = 2;
         int m = 3;
+        int n = 4;
+        int o = 5;
+        TextView yesVotes = (TextView) findViewById(R.id.YesVotes);
+        TextView noVotes = (TextView) findViewById(R.id.NoVotes);
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
@@ -44,17 +48,35 @@ public class viewpoll extends AppCompatActivity {
         option2buttonname.setText((String)b.get(""+l+""));
         opt2= Long.parseLong(((String)b.get(""+l+"")).replaceAll("[^0-9]",""));
         del = Long.parseLong(((String)b.get(""+m+"")).replaceAll("[^0-9]",""));
+        yesnames = (String)b.get(""+n+"");
+        nonames = (String)b.get(""+o+"");
+        if(yesnames!=null && yesnames.matches("")==false)
+            yesVotes.setText("Yes: "+ yesnames);
+        if(nonames!=null && nonames.matches("")==false)
+            noVotes.setText("No: "+ nonames);
         option1buttonname.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
                 myref.child(name).child("yes").setValue(opt1+Long.valueOf(1));  //increments poll value here
+                if(voterID!=null && voterID.matches("")==false&&voterID.matches("Name")==false){
+                    yesnames = yesnames + " "+voterID;
+                    myref.child(name).child("yesnames").setValue(yesnames);
+                }
                 finish();
             }
         });
         option2buttonname.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
                 myref.child(name).child("no").setValue(opt2+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
                 finish();
             }
         });

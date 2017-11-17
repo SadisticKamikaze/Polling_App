@@ -94,11 +94,13 @@ public class MainActivity extends AppCompatActivity {
                                 Long[] yes = getYesPollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] no = getNoPollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
-                                Long[] delete = getDeletePasswords((Map<String, Object>) dataSnapshot.getValue());
-                                LinearLayout layout = (LinearLayout) findViewById((R.id.ButtonLayout));
+                                Long[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
+                                String[] yesnames = getYesNames((Map<String, Object>) dataSnapshot.getValue());
+                                String[] nonames = getNoNames((Map<String, Object>) dataSnapshot.getValue());
+                                LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                                 Context context = getApplicationContext();
-                                for (int i = 0; i < names.length; i++) {
-                                    if (passwords[i] == password) { //if passwords match, make a button with the name of the poll
+                                for(int i=0;i<names.length;i++){
+                                    if(passwords[i]==password) { //if passwords match, make a button with the name of the poll
                                         final Button pollButton = new Button(context);
                                         pollButton.setId(i);
                                         pollButton.setText(names[i]);
@@ -106,26 +108,32 @@ public class MainActivity extends AppCompatActivity {
                                         final long p = yes[i];
                                         final long u = no[i];
                                         final long del = delete[i];
+                                        final String yesname = yesnames[i];
+                                        Log.d(names[i], "name");
+                                        Log.d(yesname, "test");
+                                        final String noname = nonames[i];
                                         pollButton.setOnClickListener(new View.OnClickListener() {
-                                            int j = 0;
-                                            int k = 1;
-                                            int l = 2;
-                                            int m = 3;
-
+                                            int j=0;
+                                            int k=1;
+                                            int l=2;
+                                            int m=3;
+                                            int n=4;
+                                            int o=5;
                                             @Override
                                             public void onClick(View v) {
                                                 Intent startIntent = new Intent(getApplicationContext(), viewpoll.class);
-                                                startIntent.putExtra("" + j + "", (String) pollButton.getText());
-                                                startIntent.putExtra("" + k + "", "Yes: " + Integer.toString((int) p));
-                                                startIntent.putExtra("" + l + "", "No: " + Integer.toString((int) u));
-                                                startIntent.putExtra("" + m + "", Integer.toString((int) del));
+                                                startIntent.putExtra(""+j+"", (String)pollButton.getText());
+                                                startIntent.putExtra(""+k+"", "Yes: "+Integer.toString((int)p));
+                                                startIntent.putExtra(""+l+"", "No: "+Integer.toString((int)u));
+                                                startIntent.putExtra(""+m+"", Integer.toString((int)del));
+                                                startIntent.putExtra(""+n+"", yesname);
+                                                startIntent.putExtra(""+o+"", noname);
                                                 startActivity(startIntent);
                                             }
                                         });
                                     }
                                 }
                             }
-
                             @Override
                             public void onCancelled(DatabaseError databaseError) {
 
@@ -178,22 +186,21 @@ public class MainActivity extends AppCompatActivity {
         return (String[])pollList.toArray(new String[0]);
     }
     private String[] getYesNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
-        ArrayList<String> pollList = new ArrayList<String>();
+        ArrayList<String> yesNames = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            pollList.add(entry.getKey());
-            pollList.add((String)poll.get("yesnames"));
+            yesNames.add((String)poll.get("yesnames"));
         }
-        return (String[])pollList.toArray(new String[0]);
+        return (String[])yesNames.toArray(new String[0]);
     }
 
     private String[] getNoNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
-        ArrayList<String> pollList = new ArrayList<String>();
+        ArrayList<String> noNames = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            pollList.add((String)poll.get("nonames"));
+            noNames.add((String)poll.get("nonames"));
         }
-        return (String[])pollList.toArray(new String[0]);
+        return (String[])noNames.toArray(new String[0]);
     }
 
     public void newPoll(View v){
@@ -228,6 +235,8 @@ public class MainActivity extends AppCompatActivity {
                                 final long u = no[i];
                                 final long del = delete[i];
                                 final String yesname = yesnames[i];
+                                Log.d(names[i], "name");
+                                Log.d(yesname, "test");
                                 final String noname = nonames[i];
                                 pollButton.setOnClickListener(new View.OnClickListener() {
                                     int j=0;

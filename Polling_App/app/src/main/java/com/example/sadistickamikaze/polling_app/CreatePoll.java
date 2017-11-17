@@ -47,8 +47,8 @@ public class CreatePoll extends AppCompatActivity {
                 if(delete>0){
                     myref.child(string).child("delete").setValue(delete);
                 }
-                myref.child(string).child("yesname").setValue("");
-                myref.child(string).child("noname").setValue("");
+                myref.child(string).child("yesnames").setValue("");
+                myref.child(string).child("nonames").setValue("");
                 finish();
             }
         });
