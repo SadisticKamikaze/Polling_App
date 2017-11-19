@@ -48,12 +48,12 @@ public class viewpoll extends AppCompatActivity {
         option2buttonname.setText((String)b.get(""+l+""));
         opt2= Long.parseLong(((String)b.get(""+l+"")).replaceAll("[^0-9]",""));
         del = Long.parseLong(((String)b.get(""+m+"")).replaceAll("[^0-9]",""));
-        yesnames = (String)b.get(""+n+"");
+       /* yesnames = (String)b.get(""+n+"");
         nonames = (String)b.get(""+o+"");
         if(yesnames!=null && yesnames.matches("")==false)
             yesVotes.setText("Yes: "+ yesnames);
         if(nonames!=null && nonames.matches("")==false)
-            noVotes.setText("No: "+ nonames);
+            noVotes.setText("No: "+ nonames);*/
         option1buttonname.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
