@@ -178,8 +178,10 @@ public class CreatePoll extends AppCompatActivity {
                     delete = Long.parseLong(option2answer.getText().toString());
                 }
                 if(dropdown.equals("2")) {
-                    myref.child(string).child(stringoption1).setValue(0);
-                    myref.child(string).child(stringoption2).setValue(0);
+                    myref.child(string).child("opt1").setValue(stringoption1);
+                    myref.child(string).child("opt1ans").setValue(0);
+                    myref.child(string).child("opt2").setValue(stringoption2);
+                    myref.child(string).child("opt2ans").setValue(0);
                 }
                 myref.child(string).child("password").setValue(0);
                 if(password>0){
@@ -189,8 +191,8 @@ public class CreatePoll extends AppCompatActivity {
                 if(delete>0){
                     myref.child(string).child("delete").setValue(delete);
                 }
-                myref.child(string).child("yesnames").setValue("");
-                myref.child(string).child("nonames").setValue("");
+                myref.child(string).child("opt1names").setValue("");
+                myref.child(string).child("opt2names").setValue("");
                 finish();
             }
         });

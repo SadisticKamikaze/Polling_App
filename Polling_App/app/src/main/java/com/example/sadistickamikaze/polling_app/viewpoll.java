@@ -44,9 +44,9 @@ public class viewpoll extends AppCompatActivity {
         questionname.setText((String)b.get(""+j+""));
         name=(String)b.get(""+j+"");
         option1buttonname.setText((String)b.get(""+k+""));
-        opt1= Long.parseLong(((String)b.get(""+k+"")).replaceAll("[^0-9]","")); //strips the option name and leaves numbers, then convert into Long
+        opt1= Long.parseLong(((String)b.get(""+k+"")).substring(((String)b.get(""+k+"")).indexOf(":")+2)); //strips the option name and leaves numbers, then convert into Long
         option2buttonname.setText((String)b.get(""+l+""));
-        opt2= Long.parseLong(((String)b.get(""+l+"")).replaceAll("[^0-9]",""));
+        opt2= Long.parseLong(((String)b.get(""+l+"")).substring(((String)b.get(""+l+"")).indexOf(":")+2));
         del = Long.parseLong(((String)b.get(""+m+"")).replaceAll("[^0-9]",""));
        /* yesnames = (String)b.get(""+n+"");
         nonames = (String)b.get(""+o+"");
@@ -59,7 +59,7 @@ public class viewpoll extends AppCompatActivity {
             public void onClick(View v){
                 EditText voterIDField = (EditText) findViewById(R.id.VoterID);
                 String voterID=voterIDField.getText().toString();
-                myref.child(name).child("yes").setValue(opt1+Long.valueOf(1));  //increments poll value here
+                myref.child(name).child("opt1ans").setValue(opt1+Long.valueOf(1));  //increments poll value here
                 if(voterID!=null && voterID.matches("")==false&&voterID.matches("Name")==false){
                     yesnames = yesnames + " "+voterID;
                     myref.child(name).child("yesnames").setValue(yesnames);
@@ -72,7 +72,7 @@ public class viewpoll extends AppCompatActivity {
             public void onClick(View v) {
                 EditText voterIDField = (EditText) findViewById(R.id.VoterID);
                 String voterID=voterIDField.getText().toString();
-                myref.child(name).child("no").setValue(opt2+Long.valueOf(1));
+                myref.child(name).child("opt2ans").setValue(opt2+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     nonames = nonames + " "+voterID;
                     myref.child(name).child("nonames").setValue(nonames);
