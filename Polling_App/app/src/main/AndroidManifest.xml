@@ -21,7 +21,8 @@
         <activity android:name=".FilterButton" />
         <activity android:name=".CreatePoll" />
         <activity android:name=".viewpoll" />
-        <activity android:name=".PiePoll"></activity>
+        <activity android:name=".PiePoll" />
+        <activity android:name=".BarPoll"></activity>
     </application>
 
 </manifest>
