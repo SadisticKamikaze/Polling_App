@@ -20,6 +20,14 @@ public class viewpoll extends AppCompatActivity {
     String name;
     Long opt1;
     Long opt2;
+    Long opt3;
+    Long opt4;
+    Long opt5;
+    Long opt6;
+    Long opt7;
+    Long opt8;
+    Long opt9;
+    Long opt10;
     Long del;
     String yesnames;
     String nonames;
@@ -33,11 +41,17 @@ public class viewpoll extends AppCompatActivity {
         int m = 3;
         int n = 4;
         int o = 5;
-        TextView yesVotes = (TextView) findViewById(R.id.YesVotes);
-        TextView noVotes = (TextView) findViewById(R.id.NoVotes);
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
+        TextView option3buttonname = (TextView) findViewById(R.id.option3button);
+        TextView option4buttonname = (TextView) findViewById(R.id.option4button);
+        TextView option5buttonname = (TextView) findViewById(R.id.option5button);
+        TextView option6buttonname = (TextView) findViewById(R.id.option6button);
+        TextView option7buttonname = (TextView) findViewById(R.id.option7button);
+        TextView option8buttonname = (TextView) findViewById(R.id.option8button);
+        TextView option9buttonname = (TextView) findViewById(R.id.option9button);
+        TextView option10buttonname = (TextView) findViewById(R.id.option10button);
         final EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
@@ -48,7 +62,49 @@ public class viewpoll extends AppCompatActivity {
         opt1= Long.parseLong(((String)b.get("opt1info")).substring(((String)b.get("opt1info")).indexOf(":")+2)); //strips the option name and leaves numbers, then convert into Long
         option2buttonname.setText((String)b.get("opt2info"));
         opt2= Long.parseLong(((String)b.get("opt2info")).substring(((String)b.get("opt2info")).indexOf(":")+2));
+        option3buttonname.setText((String)b.get("opt3info"));
+        opt3= Long.parseLong(((String)b.get("opt3info")).substring(((String)b.get("opt3info")).indexOf(":")+2));
+        if(option3buttonname.getText().equals(": 0") == false){
+            option3buttonname.setVisibility(View.VISIBLE);
+        }
+        option4buttonname.setText((String)b.get("opt4info"));
+        opt4= Long.parseLong(((String)b.get("opt4info")).substring(((String)b.get("opt4info")).indexOf(":")+2));
+        if(option4buttonname.getText().equals(": 0") == false){
+            option4buttonname.setVisibility(View.VISIBLE);
+        }
+        option5buttonname.setText((String)b.get("opt5info"));
+        opt5= Long.parseLong(((String)b.get("opt5info")).substring(((String)b.get("opt5info")).indexOf(":")+2));
+        if(option5buttonname.getText().equals(": 0") == false){
+            option5buttonname.setVisibility(View.VISIBLE);
+        }
+        option6buttonname.setText((String)b.get("opt6info"));
+        opt6= Long.parseLong(((String)b.get("opt6info")).substring(((String)b.get("opt6info")).indexOf(":")+2));
+        if(option6buttonname.getText().equals(": 0") == false){
+            option6buttonname.setVisibility(View.VISIBLE);
+        }
+        option7buttonname.setText((String)b.get("opt7info"));
+        opt7= Long.parseLong(((String)b.get("opt7info")).substring(((String)b.get("opt7info")).indexOf(":")+2));
+        if(option7buttonname.getText().equals(": 0") == false){
+            option7buttonname.setVisibility(View.VISIBLE);
+        }
+        option8buttonname.setText((String)b.get("opt8info"));
+        opt8= Long.parseLong(((String)b.get("opt8info")).substring(((String)b.get("opt8info")).indexOf(":")+2));
+        if(option8buttonname.getText().equals(": 0") == false){
+            option8buttonname.setVisibility(View.VISIBLE);
+        }
+        option9buttonname.setText((String)b.get("opt9info"));
+        opt9= Long.parseLong(((String)b.get("opt9info")).substring(((String)b.get("opt9info")).indexOf(":")+2));
+        if(option9buttonname.getText().equals(": 0") == false){
+            option9buttonname.setVisibility(View.VISIBLE);
+        }
+        option10buttonname.setText((String)b.get("opt10info"));
+        opt10= Long.parseLong(((String)b.get("opt10info")).substring(((String)b.get("opt10info")).indexOf(":")+2));
+        if(option10buttonname.getText().equals(": 0") == false){
+            option10buttonname.setVisibility(View.VISIBLE);
+        }
         del = Long.parseLong(((String)b.get("delPass")).replaceAll("[^0-9]",""));
+
+
 
        /* yesnames = (String)b.get(""+n+"");
         nonames = (String)b.get(""+o+"");
@@ -75,6 +131,110 @@ public class viewpoll extends AppCompatActivity {
                 EditText voterIDField = (EditText) findViewById(R.id.VoterID);
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt2ans").setValue(opt2+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option3buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt3ans").setValue(opt3+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option4buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt4ans").setValue(opt4+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option5buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt5ans").setValue(opt5+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option6buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt6ans").setValue(opt6+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option7buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt7ans").setValue(opt7+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option8buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt8ans").setValue(opt8+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option9buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt9ans").setValue(opt9+Long.valueOf(1));
+                if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
+                    nonames = nonames + " "+voterID;
+                    myref.child(name).child("nonames").setValue(nonames);
+                }
+                finish();
+            }
+        });
+        option10buttonname.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText voterIDField = (EditText) findViewById(R.id.VoterID);
+                String voterID=voterIDField.getText().toString();
+                myref.child(name).child("opt10ans").setValue(opt10+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     nonames = nonames + " "+voterID;
                     myref.child(name).child("nonames").setValue(nonames);
