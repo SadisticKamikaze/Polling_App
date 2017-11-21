@@ -41,13 +41,15 @@ public class viewpoll extends AppCompatActivity {
         final EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
-        questionname.setText((String)b.get(""+j+""));
-        name=(String)b.get(""+j+"");
-        option1buttonname.setText((String)b.get(""+k+""));
-        opt1= Long.parseLong(((String)b.get(""+k+"")).substring(((String)b.get(""+k+"")).indexOf(":")+2)); //strips the option name and leaves numbers, then convert into Long
-        option2buttonname.setText((String)b.get(""+l+""));
-        opt2= Long.parseLong(((String)b.get(""+l+"")).substring(((String)b.get(""+l+"")).indexOf(":")+2));
-        del = Long.parseLong(((String)b.get(""+m+"")).replaceAll("[^0-9]",""));
+
+        questionname.setText((String)b.get("name"));
+        name=(String)b.get("name");
+        option1buttonname.setText((String)b.get("opt1info"));
+        opt1= Long.parseLong(((String)b.get("opt1info")).substring(((String)b.get("opt1info")).indexOf(":")+2)); //strips the option name and leaves numbers, then convert into Long
+        option2buttonname.setText((String)b.get("opt2info"));
+        opt2= Long.parseLong(((String)b.get("opt2info")).substring(((String)b.get("opt2info")).indexOf(":")+2));
+        del = Long.parseLong(((String)b.get("delPass")).replaceAll("[^0-9]",""));
+
        /* yesnames = (String)b.get(""+n+"");
         nonames = (String)b.get(""+o+"");
         if(yesnames!=null && yesnames.matches("")==false)

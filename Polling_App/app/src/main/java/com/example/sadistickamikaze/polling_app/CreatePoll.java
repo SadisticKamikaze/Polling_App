@@ -171,17 +171,28 @@ public class CreatePoll extends AppCompatActivity {
                 String stringoption4 = ddoption4.getText().toString();
                 String stringoption5 = ddoption5.getText().toString();
                 String stringoption6 = ddoption6.getText().toString();
+                String stringoption7 = ddoption7.getText().toString();
+                String stringoption8 = ddoption8.getText().toString();
+                String stringoption9 = ddoption9.getText().toString();
+                String stringoption10 = ddoption10.getText().toString();
                 if(option1answer.getText().toString().matches("")==false){
                     password = Long.parseLong(option1answer.getText().toString());
                 }
                 if(option2answer.getText().toString().matches("")==false){
                     delete = Long.parseLong(option2answer.getText().toString());
                 }
-                if(dropdown.equals("2")) {
-                    myref.child(string).child("opt1").setValue(stringoption1);
-                    myref.child(string).child("opt1ans").setValue(0);
-                    myref.child(string).child("opt2").setValue(stringoption2);
-                    myref.child(string).child("opt2ans").setValue(0);
+                myref.child(string).child("opt1").setValue(stringoption1);
+                myref.child(string).child("opt2").setValue(stringoption2);
+                myref.child(string).child("opt3").setValue(stringoption3);
+                myref.child(string).child("opt4").setValue(stringoption4);
+                myref.child(string).child("opt5").setValue(stringoption5);
+                myref.child(string).child("opt6").setValue(stringoption6);
+                myref.child(string).child("opt7").setValue(stringoption7);
+                myref.child(string).child("opt8").setValue(stringoption8);
+                myref.child(string).child("opt9").setValue(stringoption9);
+                myref.child(string).child("opt10").setValue(stringoption10);
+                for(int i =1;i<11;i++){
+                    myref.child(string).child("opt"+i+"ans").setValue(0);
                 }
                 myref.child(string).child("password").setValue(0);
                 if(password>0){
