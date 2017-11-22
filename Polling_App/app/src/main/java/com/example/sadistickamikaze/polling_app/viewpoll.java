@@ -35,12 +35,6 @@ public class viewpoll extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
-        int j = 0;
-        int k = 1;
-        int l = 2;
-        int m = 3;
-        int n = 4;
-        int o = 5;
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
         TextView option1buttonname = (TextView) findViewById(R.id.option1button);
         TextView option2buttonname = (TextView) findViewById(R.id.option2button);
