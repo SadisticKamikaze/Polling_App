@@ -28,6 +28,7 @@ public class viewpoll extends AppCompatActivity {
     Long opt8;
     Long opt9;
     Long opt10;
+    String[] info;
     Long del;
     String yesnames;
     String nonames;
@@ -35,6 +36,7 @@ public class viewpoll extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         optCount=2;
+        info= new String[10];
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
@@ -51,6 +53,10 @@ public class viewpoll extends AppCompatActivity {
         final EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
+
+        for(int i=1;i<11;i++){
+            info[i-1]=((String)b.get("opt"+i+"info")).substring(0,((String)b.get("opt"+i+"info")).indexOf(":"));
+        }
 
         questionname.setText((String)b.get("name"));
         name=(String)b.get("name");
@@ -280,6 +286,7 @@ public class viewpoll extends AppCompatActivity {
         intent.putExtra("h",opt8);
         intent.putExtra("i",opt9);
         intent.putExtra("j",opt10);
+        intent.putExtra("names", info);
         intent.putExtra("count",optCount);
         startActivity(intent);
     }
