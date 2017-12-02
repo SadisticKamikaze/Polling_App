@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -34,12 +35,22 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Button FilterButton = (Button)findViewById(R.id.FilterButton);
+            Button RefreshButton = (Button)findViewById(R.id.refreshButton);
+            Button newPollButton = (Button)findViewById(R.id.newPollButton);
+            LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     FilterButton.setVisibility(View.VISIBLE);
+                    newPollButton.setVisibility(View.VISIBLE);
+                    RefreshButton.setVisibility(View.VISIBLE);
+                    layout.setVisibility(View.VISIBLE);
+
                     return true;
                 case R.id.navigation_notifications:
                     FilterButton.setVisibility(View.GONE);
+                    newPollButton.setVisibility(View.GONE);
+                    RefreshButton.setVisibility(View.GONE);
+                    layout.setVisibility(View.GONE);
                     return true;
             }
             return false;
@@ -122,7 +133,10 @@ public class MainActivity extends AppCompatActivity {
                                         final Button pollButton = new Button(context);
                                         pollButton.setId(i);
                                         pollButton.setText(names[i]);
-                                        layout.addView(pollButton);
+                                        pollButton.setBackgroundResource(R.drawable.button);
+                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, 100);
+                                        params.topMargin = 20;
+                                        layout.addView(pollButton, params);
                                         final String opt1name = opt1names[i];
                                         final String opt2name = opt2names[i];
                                         final String opt3name = opt3names[i];
@@ -395,6 +409,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(info);
     }
 
+
     @Override
     public void onResume(){
         super.onResume();
@@ -435,7 +450,10 @@ public class MainActivity extends AppCompatActivity {
                                 final Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
-                                layout.addView(pollButton);
+                                pollButton.setBackgroundResource(R.drawable.button);
+                                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(1000, 100);
+                                params.topMargin = 20;
+                                layout.addView(pollButton, params);
                                 final String opt1name = opt1names[i];
                                 final String opt2name = opt2names[i];
                                 final String opt3name = opt3names[i];
