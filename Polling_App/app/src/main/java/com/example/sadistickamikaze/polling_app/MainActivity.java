@@ -37,17 +37,20 @@ public class MainActivity extends AppCompatActivity {
             Button FilterButton = (Button)findViewById(R.id.FilterButton);
             Button RefreshButton = (Button)findViewById(R.id.refreshButton);
             Button newPollButton = (Button)findViewById(R.id.newPollButton);
+            LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     FilterButton.setVisibility(View.VISIBLE);
                     newPollButton.setVisibility(View.VISIBLE);
                     RefreshButton.setVisibility(View.VISIBLE);
-                    
+                    layout.setVisibility(View.VISIBLE);
+
                     return true;
                 case R.id.navigation_notifications:
                     FilterButton.setVisibility(View.GONE);
                     newPollButton.setVisibility(View.GONE);
                     RefreshButton.setVisibility(View.GONE);
+                    layout.setVisibility(View.GONE);
                     return true;
             }
             return false;
