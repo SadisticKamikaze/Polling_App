@@ -272,9 +272,15 @@ public class viewpoll extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), PiePoll.class);
         intent.putExtra("a",opt1);
         intent.putExtra("b",opt2);
-        intent.putExtra("c",optCount);
-       // piePoll.addVotes(opt1);
-       //  piePoll.addVotes(opt2);
+        intent.putExtra("c",opt3);
+        intent.putExtra("d",opt4);
+        intent.putExtra("e",opt5);
+        intent.putExtra("f",opt6);
+        intent.putExtra("g",opt7);
+        intent.putExtra("h",opt8);
+        intent.putExtra("i",opt9);
+        intent.putExtra("j",opt10);
+        intent.putExtra("count",optCount);
         startActivity(intent);
     }
 
