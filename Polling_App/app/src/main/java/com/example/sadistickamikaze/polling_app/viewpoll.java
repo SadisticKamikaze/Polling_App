@@ -29,7 +29,7 @@ public class viewpoll extends AppCompatActivity {
     Long opt9;
     Long opt10;
     String[] info;
-    Long del;
+    String del;
     String yesnames;
     String nonames;
     int optCount;
@@ -112,7 +112,7 @@ public class viewpoll extends AppCompatActivity {
             option10buttonname.setVisibility(View.VISIBLE);
             optCount++;
         }
-        del = Long.parseLong(((String)b.get("delPass")).replaceAll("[^0-9]",""));
+        del = ((String)b.get("delPass")).replaceAll("[^0-9]","");
 
 
 
@@ -258,11 +258,9 @@ public class viewpoll extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String delpass=deletepassword.getText().toString();
-                if(delpass.matches("")==false){
-                    if(Long.parseLong(delpass)==del) {
+                    if(delpass.equals(del)) {
                         myref.child(name).removeValue();
                         finish();
-                    }
                 }
             }
         });

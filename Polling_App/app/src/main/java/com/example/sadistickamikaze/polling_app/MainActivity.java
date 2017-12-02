@@ -25,7 +25,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    static Long password;
+    static String password;
     private TextView mTextMessage;
 
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        password=Long.valueOf(0);
+        password="";
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         final DatabaseReference myRef = database.getReference();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -119,14 +119,14 @@ public class MainActivity extends AppCompatActivity {
                                 Long[] opt8PollCount = getOpt8PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt9PollCount = getOpt9PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt10PollCount = getOpt10PollCount((Map<String, Object>) dataSnapshot.getValue());
-                                Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
-                                Long[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
+                                String[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
+                                String[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
                                 //String[] yesnames = getOpt1Names((Map<String, Object>) dataSnapshot.getValue());
                                 //String[] nonames = getNoNames((Map<String, Object>) dataSnapshot.getValue());
                                 LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                                 Context context = getApplicationContext();
                                 for(int i=0;i<names.length;i++){
-                                    if(passwords[i]==password) { //if passwords match, make a button with the name of the poll
+                                    if(passwords[i].equals(password)) { //if passwords match, make a button with the name of the poll
                                         final Button pollButton = new Button(context);
                                         pollButton.setId(i);
                                         pollButton.setText(names[i]);
@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
                                         final long opt8count = opt8PollCount[i];
                                         final long opt9count = opt9PollCount[i];
                                         final long opt10count = opt10PollCount[i];
-                                        final long del = delete[i];
+                                        final String del = delete[i];
                                         pollButton.setOnClickListener(new View.OnClickListener() {
                                             @Override
                                             public void onClick(View v) {
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
                                                 startIntent.putExtra("opt8info", opt8name+": "+Integer.toString((int)opt8count));
                                                 startIntent.putExtra("opt9info", opt9name+": "+Integer.toString((int)opt9count));
                                                 startIntent.putExtra("opt10info", opt10name+": "+Integer.toString((int)opt10count));
-                                                startIntent.putExtra("delPass", Integer.toString((int)del));
+                                                startIntent.putExtra("delPass", del);
                                                 //startIntent.putExtra(""+n+"", yesname);
                                                 //startIntent.putExtra(""+o+"", noname);
                                                 startActivity(startIntent);
@@ -279,21 +279,21 @@ public class MainActivity extends AppCompatActivity {
         return (String[])pollList.toArray(new String[0]);
 
     }
-    private Long[] getPasswords(Map<String, Object> polls){ //puts passwords into a long array by iterating though all polls
-        ArrayList<Long> passwords= new ArrayList<Long>();
+    private String[] getPasswords(Map<String, Object> polls){ //puts passwords into a long array by iterating though all polls
+        ArrayList<String> passwords= new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            passwords.add((Long) poll.get("password"));
+            passwords.add((String)poll.get("password"));
         }
-        return (Long[])  passwords.toArray(new Long[0]);
+        return (String[])  passwords.toArray(new String[0]);
     }
-    private Long[] getDeletePasswords(Map<String, Object> polls){ //puts delete passwords into a long array by iterating though all polls
-        ArrayList<Long> deletepasswords= new ArrayList<Long>();
+    private String[] getDeletePasswords(Map<String, Object> polls){ //puts delete passwords into a long array by iterating though all polls
+        ArrayList<String> deletepasswords= new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            deletepasswords.add((Long) poll.get("delete"));
+            deletepasswords.add((String) poll.get("delete"));
         }
-        return (Long[])  deletepasswords.toArray(new Long[0]);
+        return (String[])  deletepasswords.toArray(new String[0]);
     }
     private Long[] getOpt2PollCount(Map<String, Object> polls){ //puts nos into a long array by iterating though all polls
         ArrayList<Long> noCount = new ArrayList<Long>();
@@ -436,14 +436,14 @@ public class MainActivity extends AppCompatActivity {
                         Long[] opt8PollCount = getOpt8PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt9PollCount = getOpt9PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt10PollCount = getOpt10PollCount((Map<String, Object>) dataSnapshot.getValue());
-                        Long[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
-                        Long[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
+                        String[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
+                        String[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
                         //String[] yesnames = getOpt1Names((Map<String, Object>) dataSnapshot.getValue());
                         //String[] nonames = getNoNames((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
-                            if(passwords[i]==password) { //if passwords match, make a button with the name of the poll
+                            if(passwords[i].equals(password)) { //if passwords match, make a button with the name of the poll
                                 final Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
@@ -471,7 +471,7 @@ public class MainActivity extends AppCompatActivity {
                                 final long opt8count = opt8PollCount[i];
                                 final long opt9count = opt9PollCount[i];
                                 final long opt10count = opt10PollCount[i];
-                                final long del = delete[i];
+                                final String del = delete[i];
                                 pollButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
                                     public void onClick(View v) {
@@ -487,7 +487,7 @@ public class MainActivity extends AppCompatActivity {
                                         startIntent.putExtra("opt8info", opt8name+": "+Integer.toString((int)opt8count));
                                         startIntent.putExtra("opt9info", opt9name+": "+Integer.toString((int)opt9count));
                                         startIntent.putExtra("opt10info", opt10name+": "+Integer.toString((int)opt10count));
-                                        startIntent.putExtra("delPass", Integer.toString((int)del));
+                                        startIntent.putExtra("delPass", del);
                                         //startIntent.putExtra(""+n+"", yesname);
                                         //startIntent.putExtra(""+o+"", noname);
                                         startActivity(startIntent);
