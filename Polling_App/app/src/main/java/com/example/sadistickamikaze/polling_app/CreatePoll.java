@@ -162,8 +162,8 @@ public class CreatePoll extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Long password = Long.valueOf(0);
-                Long delete = Long.valueOf(0);
+                String password="";
+                String delete="";
                 String string = pollquestion.getText().toString();
                 String stringoption1 = ddoption1.getText().toString();
                 String stringoption2 = ddoption2.getText().toString();
@@ -176,10 +176,10 @@ public class CreatePoll extends AppCompatActivity {
                 String stringoption9 = ddoption9.getText().toString();
                 String stringoption10 = ddoption10.getText().toString();
                 if(option1answer.getText().toString().matches("")==false){
-                    password = Long.parseLong(option1answer.getText().toString());
+                    password = option1answer.getText().toString();
                 }
                 if(option2answer.getText().toString().matches("")==false){
-                    delete = Long.parseLong(option2answer.getText().toString());
+                    delete = option1answer.getText().toString();
                 }
                 myref.child(string).child("opt1").setValue(stringoption1);
                 myref.child(string).child("opt2").setValue(stringoption2);
@@ -194,12 +194,12 @@ public class CreatePoll extends AppCompatActivity {
                 for(int i =1;i<11;i++){
                     myref.child(string).child("opt"+i+"ans").setValue(0);
                 }
-                myref.child(string).child("password").setValue(0);
-                if(password>0){
+                myref.child(string).child("password").setValue("");
+                if(password.matches("")==false){
                     myref.child(string).child("password").setValue(password);
                 }
-                myref.child(string).child("delete").setValue(0);
-                if(delete>0){
+                myref.child(string).child("delete").setValue("");
+                if(delete.matches("")==false){
                     myref.child(string).child("delete").setValue(delete);
                 }
                 myref.child(string).child("opt1names").setValue("");

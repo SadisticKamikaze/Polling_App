@@ -24,10 +24,10 @@ public class FilterButton extends AppCompatActivity {
                 EditText password2 = (EditText)findViewById(R.id.passwordcontext);
                 String string = password2.getText().toString();
                 if(string.matches("")==false) {
-                    password = Long.valueOf(string);
+                    password = string;
                 }
                 else{
-                    password = Long.valueOf(0);
+                    password = "";
                 }
                 finish();
             }
