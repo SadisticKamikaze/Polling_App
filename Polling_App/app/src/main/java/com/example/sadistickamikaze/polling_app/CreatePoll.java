@@ -1,8 +1,13 @@
 package com.example.sadistickamikaze.polling_app;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -11,6 +16,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -18,10 +26,36 @@ public class CreatePoll extends AppCompatActivity {
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Polls");
     String dropdown;
-    @Override
+    double longitude;
+    double latitude;
+    private FusedLocationProviderClient mFusedLocationClient;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_poll);
+
+        try {
+            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            // Got last known location. In some rare situations this can be null.
+                            Log.d("trigger", "trigger");
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                Log.d("lat", latitude+"");
+                                longitude = location.getLongitude();
+                                Log.d("long", longitude+"");
+                            }
+                        }
+                    });
+        }
+        catch(SecurityException e){
+            Log.d("Hey!","Permission to access location denied, yo!");
+            System.exit(0);
+        }
+
 
         Spinner numberofpolldropdown = (Spinner)findViewById(R.id.spinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.numberofpolls));
@@ -204,8 +238,13 @@ public class CreatePoll extends AppCompatActivity {
                 }
                 myref.child(string).child("opt1names").setValue("");
                 myref.child(string).child("opt2names").setValue("");
+                myref.child(string).child("longitude").setValue(longitude);
+                myref.child(string).child("latitude").setValue(latitude);
                 finish();
             }
         });
+    }
+    public void checkPermission(){
+
     }
 }
