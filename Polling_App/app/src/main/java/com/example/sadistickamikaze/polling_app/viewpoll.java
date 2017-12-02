@@ -31,8 +31,10 @@ public class viewpoll extends AppCompatActivity {
     Long del;
     String yesnames;
     String nonames;
+    int optCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        optCount=2;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
         TextView questionname = (TextView) findViewById(R.id.questiontitle);
@@ -60,41 +62,49 @@ public class viewpoll extends AppCompatActivity {
         opt3= Long.parseLong(((String)b.get("opt3info")).substring(((String)b.get("opt3info")).indexOf(":")+2));
         if(option3buttonname.getText().equals(": 0") == false){
             option3buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option4buttonname.setText((String)b.get("opt4info"));
         opt4= Long.parseLong(((String)b.get("opt4info")).substring(((String)b.get("opt4info")).indexOf(":")+2));
         if(option4buttonname.getText().equals(": 0") == false){
             option4buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option5buttonname.setText((String)b.get("opt5info"));
         opt5= Long.parseLong(((String)b.get("opt5info")).substring(((String)b.get("opt5info")).indexOf(":")+2));
         if(option5buttonname.getText().equals(": 0") == false){
             option5buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option6buttonname.setText((String)b.get("opt6info"));
         opt6= Long.parseLong(((String)b.get("opt6info")).substring(((String)b.get("opt6info")).indexOf(":")+2));
         if(option6buttonname.getText().equals(": 0") == false){
             option6buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option7buttonname.setText((String)b.get("opt7info"));
         opt7= Long.parseLong(((String)b.get("opt7info")).substring(((String)b.get("opt7info")).indexOf(":")+2));
         if(option7buttonname.getText().equals(": 0") == false){
             option7buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option8buttonname.setText((String)b.get("opt8info"));
         opt8= Long.parseLong(((String)b.get("opt8info")).substring(((String)b.get("opt8info")).indexOf(":")+2));
         if(option8buttonname.getText().equals(": 0") == false){
             option8buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option9buttonname.setText((String)b.get("opt9info"));
         opt9= Long.parseLong(((String)b.get("opt9info")).substring(((String)b.get("opt9info")).indexOf(":")+2));
         if(option9buttonname.getText().equals(": 0") == false){
             option9buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         option10buttonname.setText((String)b.get("opt10info"));
         opt10= Long.parseLong(((String)b.get("opt10info")).substring(((String)b.get("opt10info")).indexOf(":")+2));
         if(option10buttonname.getText().equals(": 0") == false){
             option10buttonname.setVisibility(View.VISIBLE);
+            optCount++;
         }
         del = Long.parseLong(((String)b.get("delPass")).replaceAll("[^0-9]",""));
 
@@ -262,6 +272,7 @@ public class viewpoll extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), PiePoll.class);
         intent.putExtra("a",opt1);
         intent.putExtra("b",opt2);
+        intent.putExtra("c",optCount);
        // piePoll.addVotes(opt1);
        //  piePoll.addVotes(opt2);
         startActivity(intent);
