@@ -27,7 +27,9 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     static String password;
     private TextView mTextMessage;
-    static double maxDist;
+    static double myDist;
+    double myLong;
+    double myLat;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -425,6 +427,15 @@ public class MainActivity extends AppCompatActivity {
         }
         return longitudes.toArray(new Double[0]);
     }
+    private Double[] getDistances(Map<String, Object> polls){
+        ArrayList<Double> distances = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            String temp = poll.get("longitude") + "";
+            distances.add(Double.parseDouble(temp));
+        }
+        return distances.toArray(new Double[0]);
+    }
 
     public void newPoll(View v){
         Intent info = new Intent(this, CreatePoll.class);
@@ -435,12 +446,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
+
         final DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
         pollReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) { //every time page is resumed it refreshes this
                         String[] names = getPollNames((Map<String, Object>) dataSnapshot.getValue()); //runs functions to put passwords, name, and votes into arrays
+
                         String[] opt1names = getOpt1Names((Map<String, Object>) dataSnapshot.getValue());
                         String[] opt2names = getOpt2Names((Map<String, Object>) dataSnapshot.getValue());
                         String[] opt3names = getOpt3Names((Map<String, Object>) dataSnapshot.getValue());
@@ -453,6 +466,7 @@ public class MainActivity extends AppCompatActivity {
                         String[] opt10names = getOpt10Names((Map<String, Object>) dataSnapshot.getValue());
                         Double[] longitudes = getLongitudes((Map<String, Object>) dataSnapshot.getValue());
                         Double[] latitudes = getLatitudes((Map<String, Object>) dataSnapshot.getValue());
+                        Double[] distances = getDistances((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt1PollCount = getOpt1PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt2PollCount = getOpt2PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt3PollCount = getOpt3PollCount((Map<String, Object>) dataSnapshot.getValue());
