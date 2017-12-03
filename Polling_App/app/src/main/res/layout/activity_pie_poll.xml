@@ -7,10 +7,11 @@
     tools:context="com.example.sadistickamikaze.polling_app.PiePoll">
 
     <com.github.mikephil.charting.charts.PieChart
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/PiePoll"
-        ></com.github.mikephil.charting.charts.PieChart>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.github.mikephil.charting.charts.PieChart>
 
 
 </android.support.constraint.ConstraintLayout>

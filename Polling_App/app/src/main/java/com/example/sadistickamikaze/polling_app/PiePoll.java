@@ -1,16 +1,20 @@
 package com.example.sadistickamikaze.polling_app;
 
 import android.graphics.Color;
+import android.graphics.Point;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
@@ -28,11 +32,11 @@ public class PiePoll extends AppCompatActivity {
     public ArrayList<Long> yData;
     public ArrayList<String> xData;
     public String pollName;
-    public String description;
     public String centerName;
     public ArrayList<Integer> colors;
     public ArrayList<PieEntry> yEntrys;
     public ArrayList<String> xEntrys;
+    public Description description;
     PieChart pieChart;
 
     public PiePoll() {
@@ -41,10 +45,9 @@ public class PiePoll extends AppCompatActivity {
         yEntrys = new ArrayList<>();
         xEntrys = new ArrayList<>();
         colors = new ArrayList<>();
+        description = new Description();
+
     }
-
-
-
 
 
     @Override
@@ -52,64 +55,70 @@ public class PiePoll extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pie_poll);
 
-        info=new String[10];
+        info = new String[10];
 
         TAG = "PiePoll";
-        pollName = "TBD";
-        description = "Some Description";
-        centerName = "Some Center name";
-       // xData.add("Yes");
-       // xData.add("No");
+
+        // xData.add("Yes");
+        // xData.add("No");
         pieChart = (PieChart) findViewById(R.id.PiePoll);
         // pieChart.setDescription("Hello World");
-        pieChart.setRotationEnabled(true);
-        pieChart.setTransparentCircleAlpha(0);
-        pieChart.setHoleRadius(25);
-        pieChart.setDrawEntryLabels(true);
-        Intent iin= getIntent();
+
+        Intent iin = getIntent();
         Bundle b = iin.getExtras();
 
-        if ((long)b.get("a")>0) {
+        if ((long) b.get("a") > 0) {
             yData.add((long) b.get("a"));
         }
-        if ((long)b.get("b")>0) {
+        if ((long) b.get("b") > 0) {
             yData.add((long) b.get("b"));
         }
-        if ((long)b.get("c")>0) {
+        if ((long) b.get("c") > 0) {
             yData.add((long) b.get("c"));
         }
-        if ((long)b.get("d")>0) {
+        if ((long) b.get("d") > 0) {
             yData.add((long) b.get("d"));
         }
-        if ((long)b.get("e")>0) {
+        if ((long) b.get("e") > 0) {
             yData.add((long) b.get("e"));
         }
-        if ((long)b.get("f")>0) {
+        if ((long) b.get("f") > 0) {
             yData.add((long) b.get("f"));
         }
-        if ((long)b.get("g")>0) {
+        if ((long) b.get("g") > 0) {
             yData.add((long) b.get("g"));
         }
-        if ((long)b.get("h")>0) {
+        if ((long) b.get("h") > 0) {
             yData.add((long) b.get("h"));
         }
-        if ((long)b.get("i")>0) {
+        if ((long) b.get("i") > 0) {
             yData.add((long) b.get("i"));
         }
-        if ((long)b.get("j")>0) {
+        if ((long) b.get("j") > 0) {
             yData.add((long) b.get("j"));
         }
 
-
+        pollName = "TBD";
+        description.setText("Question Name");
+        description.setTextSize(16);
+        description.setPosition(500,50);
+        centerName = "Some Center name";
+        pieChart.setRotationEnabled(true);
+        pieChart.setNoDataText("No Votes have been recorded");
+        pieChart.setTransparentCircleAlpha(0);
+        pieChart.setHoleRadius(25);
+        pieChart.setDrawEntryLabels(true);
+        pieChart.setEntryLabelTextSize(20);
+        pieChart.setDescription(description);
         info = (String[]) b.get("names");
         number_of_options = (int) b.get("count");
 
-        for (int i=0; i<info.length; i++){
+        for (int i = 0; i < info.length; i++) {
             xData.add(info[i]);
         }
 
 
-        Log.d("something",yData.toString() );
+        Log.d("something", yData.toString());
         addDataset();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -118,11 +127,11 @@ public class PiePoll extends AppCompatActivity {
 
                 Log.d(TAG, "onValueSelected, Value Select from Chart");
                 Log.d(TAG, "onvalueSelected: " + e.toString());
-                Log.d(TAG, "onValueSelected: "+ h.toString());
+                Log.d(TAG, "onValueSelected: " + h.toString());
 
                 int index = Math.round(h.getX());
                 String answer = xData.get(index);
-                Toast.makeText(PiePoll.this, "Response: " +answer+ "\n" + "Number of Votes: "  +h.getY() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(PiePoll.this, "Response: " + answer + "\n" + "Number of Votes: " + h.getY(), Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -132,14 +141,15 @@ public class PiePoll extends AppCompatActivity {
         });
 
     }
-    private void addDataset(){
 
-        for (int i =0; i < yData.size(); i++){
-            Log.d("something",yData.get(i).toString() );
+    private void addDataset() {
+
+        for (int i = 0; i < yData.size(); i++) {
+            Log.d("something", yData.get(i).toString());
             yEntrys.add(new PieEntry(yData.get(i)));
         }
 
-        for (int i=0; i<xData.size(); i++){
+        for (int i = 0; i < xData.size(); i++) {
             xEntrys.add(xData.get(i));
         }
 
@@ -147,7 +157,7 @@ public class PiePoll extends AppCompatActivity {
         // Create data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Votes");
         pieDataSet.setSliceSpace(2);
-        pieDataSet.setValueTextSize(16);
+        pieDataSet.setValueTextSize(20);
 
 
         // Add colors
@@ -161,14 +171,55 @@ public class PiePoll extends AppCompatActivity {
         colors.add(Color.CYAN);
         colors.add(Color.DKGRAY);
         colors.add(Color.LTGRAY);
+        /*
+        if ( ==){
+            colors.add(Color.rgb());
+        }
 
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        if ( ==){
+            colors.add(Color.rgb());
+        }
+
+        */
         pieDataSet.setColors(colors);
 
         //add legend to chart
         Legend legend = pieChart.getLegend();
         legend.setForm(Legend.LegendForm.CIRCLE);
-        legend.setPosition(Legend.LegendPosition.LEFT_OF_CHART);
-
+        legend.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
+        legend.setTextSize(16);
 
         // Create Pie data object
         PieData pieData = new PieData(pieDataSet);
@@ -176,10 +227,4 @@ public class PiePoll extends AppCompatActivity {
         pieChart.invalidate();
 
     }
-
-    public void addVotes (long l){
-        yData.add(l);
-    }
-
-
 }
