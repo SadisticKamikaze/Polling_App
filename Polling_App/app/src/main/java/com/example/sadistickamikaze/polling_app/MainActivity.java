@@ -27,6 +27,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     static String password;
     private TextView mTextMessage;
+    static double maxDist;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -57,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     };
-    int test;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -293,7 +294,7 @@ public class MainActivity extends AppCompatActivity {
         return (String[])  passwords.toArray(new String[0]);
     }
     private String[] getDeletePasswords(Map<String, Object> polls){ //puts delete passwords into a long array by iterating though all polls
-        ArrayList<String> deletepasswords= new ArrayList<String>();
+        ArrayList<String> deletepasswords= new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             deletepasswords.add((String) poll.get("delete"));
@@ -301,7 +302,7 @@ public class MainActivity extends AppCompatActivity {
         return (String[])  deletepasswords.toArray(new String[0]);
     }
     private Long[] getOpt2PollCount(Map<String, Object> polls){ //puts nos into a long array by iterating though all polls
-        ArrayList<Long> noCount = new ArrayList<Long>();
+        ArrayList<Long> noCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             noCount.add((Long) poll.get("opt2ans"));
@@ -309,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) noCount.toArray(new Long[0]);
     }
     private Long[] getOpt1PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt1ans"));
@@ -317,7 +318,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt3PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt3ans"));
@@ -325,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt4PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt4ans"));
@@ -333,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt5PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt5ans"));
@@ -341,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt6PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt6ans"));
@@ -349,7 +350,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt7PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt7ans"));
@@ -357,7 +358,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt8PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt8ans"));
@@ -365,7 +366,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt9PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt9ans"));
@@ -373,7 +374,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private Long[] getOpt10PollCount(Map<String, Object> polls){ //puts yeses into a long array by iterating though all polls
-        ArrayList<Long> yesCount = new ArrayList<Long>();
+        ArrayList<Long> yesCount = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesCount.add((Long) poll.get("opt10ans"));
@@ -381,7 +382,7 @@ public class MainActivity extends AppCompatActivity {
         return (Long[]) yesCount.toArray(new Long[0]);
     }
     private String[] getPollNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
-        ArrayList<String> pollList = new ArrayList<String>();
+        ArrayList<String> pollList = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             pollList.add(entry.getKey());
@@ -389,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
         return (String[])pollList.toArray(new String[0]);
     }
     private String[] getYesNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
-        ArrayList<String> yesNames = new ArrayList<String>();
+        ArrayList<String> yesNames = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             yesNames.add((String)poll.get("yesnames"));
@@ -398,7 +399,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String[] getNoNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
-        ArrayList<String> noNames = new ArrayList<String>();
+        ArrayList<String> noNames = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             noNames.add((String)poll.get("nonames"));
@@ -407,7 +408,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Double[] getLatitudes(Map<String, Object> polls){
-        ArrayList<Double> latitudes = new ArrayList<Double>();
+        ArrayList<Double> latitudes = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             String temp = poll.get("latitude") + "";
@@ -416,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
         return latitudes.toArray(new Double[0]);
     }
     private Double[] getLongitudes(Map<String, Object> polls){
-        ArrayList<Double> longitudes = new ArrayList<Double>();
+        ArrayList<Double> longitudes = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             String temp = poll.get("longitude") + "";

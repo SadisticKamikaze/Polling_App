@@ -1,12 +1,7 @@
 package com.example.sadistickamikaze.polling_app;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,21 +10,17 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class CreatePoll extends AppCompatActivity {
-    final FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Polls");
     String dropdown;
     double longitude;
     double latitude;
+    double distance;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +30,8 @@ public class CreatePoll extends AppCompatActivity {
 
         longitude=0;
         latitude=0;
+        distance=10000000;
+
         setContentView(R.layout.activity_create_poll);
         try {
             Location location = locationManager.getLastKnownLocation(locationProvider);
@@ -237,6 +230,7 @@ public class CreatePoll extends AppCompatActivity {
                 if(delete.matches("")==false){
                     myref.child(string).child("delete").setValue(delete);
                 }
+                myref.child(string).child("distance").setValue(distance);
                 myref.child(string).child("opt1names").setValue("");
                 myref.child(string).child("opt2names").setValue("");
                 myref.child(string).child("longitude").setValue(longitude);
@@ -244,8 +238,5 @@ public class CreatePoll extends AppCompatActivity {
                 finish();
             }
         });
-    }
-    public void checkPermission(){
-
     }
 }
