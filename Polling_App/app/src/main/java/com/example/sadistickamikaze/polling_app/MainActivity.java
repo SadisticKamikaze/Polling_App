@@ -112,6 +112,8 @@ public class MainActivity extends AppCompatActivity {
                                 String[] opt8names = getOpt8Names((Map<String, Object>) dataSnapshot.getValue());
                                 String[] opt9names = getOpt9Names((Map<String, Object>) dataSnapshot.getValue());
                                 String[] opt10names = getOpt10Names((Map<String, Object>) dataSnapshot.getValue());
+                                Double[] longitudes = getLongitudes((Map<String, Object>) dataSnapshot.getValue());
+                                Double[] latitudes = getLatitudes((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt1PollCount = getOpt1PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt2PollCount = getOpt2PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt3PollCount = getOpt3PollCount((Map<String, Object>) dataSnapshot.getValue());
@@ -378,7 +380,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return (Long[]) yesCount.toArray(new Long[0]);
     }
-    private String[] getPollNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
+    private String[] getPollNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
         ArrayList<String> pollList = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -386,7 +388,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return (String[])pollList.toArray(new String[0]);
     }
-    private String[] getYesNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
+    private String[] getYesNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
         ArrayList<String> yesNames = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
@@ -395,13 +397,32 @@ public class MainActivity extends AppCompatActivity {
         return (String[])yesNames.toArray(new String[0]);
     }
 
-    private String[] getNoNames(Map<String, Object> polls){ //puts names into a long array by iterating though all polls
+    private String[] getNoNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
         ArrayList<String> noNames = new ArrayList<String>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
             noNames.add((String)poll.get("nonames"));
         }
         return (String[])noNames.toArray(new String[0]);
+    }
+
+    private Double[] getLatitudes(Map<String, Object> polls){
+        ArrayList<Double> latitudes = new ArrayList<Double>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            String temp = poll.get("latitude") + "";
+            latitudes.add(Double.parseDouble(temp));
+        }
+        return latitudes.toArray(new Double[0]);
+    }
+    private Double[] getLongitudes(Map<String, Object> polls){
+        ArrayList<Double> longitudes = new ArrayList<Double>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            String temp = poll.get("longitude") + "";
+            longitudes.add(Double.parseDouble(temp));
+        }
+        return longitudes.toArray(new Double[0]);
     }
 
     public void newPoll(View v){
@@ -429,6 +450,8 @@ public class MainActivity extends AppCompatActivity {
                         String[] opt8names = getOpt8Names((Map<String, Object>) dataSnapshot.getValue());
                         String[] opt9names = getOpt9Names((Map<String, Object>) dataSnapshot.getValue());
                         String[] opt10names = getOpt10Names((Map<String, Object>) dataSnapshot.getValue());
+                        Double[] longitudes = getLongitudes((Map<String, Object>) dataSnapshot.getValue());
+                        Double[] latitudes = getLatitudes((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt1PollCount = getOpt1PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt2PollCount = getOpt2PollCount((Map<String, Object>) dataSnapshot.getValue());
                         Long[] opt3PollCount = getOpt3PollCount((Map<String, Object>) dataSnapshot.getValue());
@@ -507,7 +530,19 @@ public class MainActivity extends AppCompatActivity {
         );
 
     }
+    public static double distFrom(Double lat1, Double lng1, Double lat2, Double lng2) {
+        double earthRadius = 3958.75; // miles (or 6371.0 kilometers)
+        double dLat = Math.toRadians(lat2-lat1);
+        double dLng = Math.toRadians(lng2-lng1);
+        double sindLat = Math.sin(dLat / 2);
+        double sindLng = Math.sin(dLng / 2);
+        double a = Math.pow(sindLat, 2) + Math.pow(sindLng, 2)
+                * Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2));
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        double dist = earthRadius * c;
 
+        return dist;
+    }
     @Override
     public void onPause(){ //stops duplicates being created when page refreshes
         super.onPause();

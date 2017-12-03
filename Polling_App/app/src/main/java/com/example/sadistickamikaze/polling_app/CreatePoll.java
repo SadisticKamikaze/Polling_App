@@ -1,8 +1,10 @@
 package com.example.sadistickamikaze.polling_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -28,33 +30,32 @@ public class CreatePoll extends AppCompatActivity {
     String dropdown;
     double longitude;
     double latitude;
-    private FusedLocationProviderClient mFusedLocationClient;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_poll);
+        String locationProvider = LocationManager.GPS_PROVIDER;
+        String networkProvider = LocationManager.NETWORK_PROVIDER;
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
+        longitude=0;
+        latitude=0;
+        setContentView(R.layout.activity_create_poll);
         try {
-            mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            // Got last known location. In some rare situations this can be null.
-                            Log.d("trigger", "trigger");
-                            if (location != null) {
-                                latitude = location.getLatitude();
-                                Log.d("lat", latitude+"");
-                                longitude = location.getLongitude();
-                                Log.d("long", longitude+"");
-                            }
-                        }
-                    });
+            Location location = locationManager.getLastKnownLocation(locationProvider);
+            Location location2 = locationManager.getLastKnownLocation(networkProvider);
+            if(location2 !=null){
+                longitude= location2.getLongitude();
+                latitude= location2.getLatitude();
+            }
+            if (location !=null){
+                longitude= location.getLongitude();
+                latitude= location.getLatitude();
+            }
+        } catch (SecurityException e) {
+            Log.d("Hey!", "Permission to access location denied, yo!");
+            finish();
         }
-        catch(SecurityException e){
-            Log.d("Hey!","Permission to access location denied, yo!");
-            System.exit(0);
-        }
+
 
 
         Spinner numberofpolldropdown = (Spinner)findViewById(R.id.spinner);
