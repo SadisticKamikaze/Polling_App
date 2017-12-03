@@ -104,9 +104,10 @@ public class PiePoll extends AppCompatActivity {
         description.setPosition(500,50);
         centerName = "Some Center name";
         pieChart.setRotationEnabled(true);
+
         pieChart.setNoDataText("No Votes have been recorded");
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setHoleRadius(25);
+        pieChart.setHoleRadius(15);
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelTextSize(20);
         pieChart.setDescription(description);
