@@ -2,6 +2,8 @@ package com.example.sadistickamikaze.polling_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -27,9 +29,9 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     static String password;
     private TextView mTextMessage;
-    static double myDist;
-    double myLong;
-    double myLat;
+    static double myDist=1000000000;
+    double myLong=0;
+    double myLat=0;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -70,6 +72,29 @@ public class MainActivity extends AppCompatActivity {
         final DatabaseReference myRef = database.getReference();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        String locationProvider = LocationManager.GPS_PROVIDER;
+        String networkProvider = LocationManager.NETWORK_PROVIDER;
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
+        myLong=0;
+        myLat=0;
+
+        try {
+            Location location = locationManager.getLastKnownLocation(locationProvider);
+            Location location2 = locationManager.getLastKnownLocation(networkProvider);
+            if(location2 !=null){
+                myLong= location2.getLongitude();
+                myLat= location2.getLatitude();
+            }
+            if (location !=null){
+                myLong= location.getLongitude();
+                myLat= location.getLatitude();
+            }
+        } catch (SecurityException e) {
+            Log.d("Hey!", "Permission to access location denied, yo!");
+            finish();
+        }
 
         Button FilterButton = (Button)findViewById(R.id.FilterButton);
         Button RefreshButton = (Button)findViewById(R.id.refreshButton);
@@ -134,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
                                 LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                                 Context context = getApplicationContext();
                                 for(int i=0;i<names.length;i++){
-                                    if(passwords[i].equals(password)) { //if passwords match, make a button with the name of the poll
+                                    if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i ])< myDist) { //if passwords match, make a button with the name of the poll
                                         final Button pollButton = new Button(context);
                                         pollButton.setId(i);
                                         pollButton.setText(names[i]);
@@ -484,7 +509,7 @@ public class MainActivity extends AppCompatActivity {
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
-                            if(passwords[i].equals(password)) { //if passwords match, make a button with the name of the poll
+                            if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i ])< myDist) { //if passwords match, make a button with the name of the poll
                                 final Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
