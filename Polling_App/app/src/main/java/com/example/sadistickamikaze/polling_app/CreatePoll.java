@@ -203,39 +203,44 @@ public class CreatePoll extends AppCompatActivity {
                 String stringoption8 = ddoption8.getText().toString();
                 String stringoption9 = ddoption9.getText().toString();
                 String stringoption10 = ddoption10.getText().toString();
-                if(option1answer.getText().toString().matches("")==false){
-                    password = option1answer.getText().toString();
+
+                if(!string.equals("") && !stringoption1.equals("") && !stringoption2.equals("")) {
+
+
+                    if (option1answer.getText().toString().matches("") == false) {
+                        password = option1answer.getText().toString();
+                    }
+                    if (option2answer.getText().toString().matches("") == false) {
+                        delete = option1answer.getText().toString();
+                    }
+                    myref.child(string).child("opt1").setValue(stringoption1);
+                    myref.child(string).child("opt2").setValue(stringoption2);
+                    myref.child(string).child("opt3").setValue(stringoption3);
+                    myref.child(string).child("opt4").setValue(stringoption4);
+                    myref.child(string).child("opt5").setValue(stringoption5);
+                    myref.child(string).child("opt6").setValue(stringoption6);
+                    myref.child(string).child("opt7").setValue(stringoption7);
+                    myref.child(string).child("opt8").setValue(stringoption8);
+                    myref.child(string).child("opt9").setValue(stringoption9);
+                    myref.child(string).child("opt10").setValue(stringoption10);
+                    for (int i = 1; i < 11; i++) {
+                        myref.child(string).child("opt" + i + "ans").setValue(0);
+                    }
+                    myref.child(string).child("password").setValue("");
+                    if (password.matches("") == false) {
+                        myref.child(string).child("password").setValue(password);
+                    }
+                    myref.child(string).child("delete").setValue("");
+                    if (delete.matches("") == false) {
+                        myref.child(string).child("delete").setValue(delete);
+                    }
+                    myref.child(string).child("distance").setValue(distance);
+                    myref.child(string).child("opt1names").setValue("");
+                    myref.child(string).child("opt2names").setValue("");
+                    myref.child(string).child("longitude").setValue(longitude);
+                    myref.child(string).child("latitude").setValue(latitude);
+                    finish();
                 }
-                if(option2answer.getText().toString().matches("")==false){
-                    delete = option1answer.getText().toString();
-                }
-                myref.child(string).child("opt1").setValue(stringoption1);
-                myref.child(string).child("opt2").setValue(stringoption2);
-                myref.child(string).child("opt3").setValue(stringoption3);
-                myref.child(string).child("opt4").setValue(stringoption4);
-                myref.child(string).child("opt5").setValue(stringoption5);
-                myref.child(string).child("opt6").setValue(stringoption6);
-                myref.child(string).child("opt7").setValue(stringoption7);
-                myref.child(string).child("opt8").setValue(stringoption8);
-                myref.child(string).child("opt9").setValue(stringoption9);
-                myref.child(string).child("opt10").setValue(stringoption10);
-                for(int i =1;i<11;i++){
-                    myref.child(string).child("opt"+i+"ans").setValue(0);
-                }
-                myref.child(string).child("password").setValue("");
-                if(password.matches("")==false){
-                    myref.child(string).child("password").setValue(password);
-                }
-                myref.child(string).child("delete").setValue("");
-                if(delete.matches("")==false){
-                    myref.child(string).child("delete").setValue(delete);
-                }
-                myref.child(string).child("distance").setValue(distance);
-                myref.child(string).child("opt1names").setValue("");
-                myref.child(string).child("opt2names").setValue("");
-                myref.child(string).child("longitude").setValue(longitude);
-                myref.child(string).child("latitude").setValue(latitude);
-                finish();
             }
         });
     }
