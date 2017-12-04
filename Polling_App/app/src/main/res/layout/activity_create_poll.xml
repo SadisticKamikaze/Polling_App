@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpaper"
+
     tools:context="com.example.sadistickamikaze.polling_app.CreatePoll">
 
     <ScrollView
@@ -25,6 +27,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:textColor="#ffffff"
                 android:id="@+id/pollquestion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +44,8 @@
                 app:layout_constraintVertical_bias="0.183" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/question"
                 android:layout_width="183dp"
                 android:layout_height="wrap_content"
@@ -58,6 +63,7 @@
                 app:layout_constraintVertical_bias="0.189" />
 
             <TextView
+                android:textColor="#ffffff"
                 android:id="@+id/optionnumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,11 +80,15 @@
                 app:layout_constraintVertical_bias="0.183" />
 
             <Spinner
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/spinner"
                 android:layout_width="194dp"
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption1"
                 android:layout_width="369dp"
                 android:layout_height="wrap_content"
@@ -88,6 +98,8 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,6 +109,8 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,6 +120,8 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,6 +131,8 @@
                 android:inputType="textPersonName" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -124,6 +142,8 @@
                 android:visibility="gone" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -133,6 +153,8 @@
                 android:visibility="gone" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,6 +164,8 @@
                 android:visibility="gone" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption8"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -151,6 +175,8 @@
                 android:visibility="gone" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,6 +186,8 @@
                 android:visibility="gone" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/ddoption10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -169,6 +197,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
                 android:id="@+id/option"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -185,15 +215,17 @@
                 app:layout_constraintVertical_bias="0.404" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
                 android:id="@+id/option1answer"
                 android:layout_width="match_parent"
-                android:layout_height="29dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:textColor="#ffffff"
                 app:layout_constraintBottom_toBottomOf="@+id/CreatePollButton"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.673"
@@ -202,6 +234,7 @@
                 app:layout_constraintVertical_bias="0.418" />
 
             <TextView
+                android:textColor="#ffffff"
                 android:id="@+id/option2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,15 +252,55 @@
                 app:layout_constraintVertical_bias="0.635" />
 
             <EditText
+                android:backgroundTint="@android:color/white"
                 android:id="@+id/option2answer"
                 android:layout_width="match_parent"
-                android:layout_height="25dp"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:ems="10"
                 android:inputType="textPersonName"
+                android:textColor="#ffffff"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/CreatePollButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.673"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.657" />
+
+            <TextView
+                android:textColor="#ffffff"
+                android:id="@+id/distancetext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:text="Distance:"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.136"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.635" />
+
+            <EditText
+                android:backgroundTint="@android:color/white"
+                android:textColor="#ffffff"
+                android:id="@+id/distanceanswer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:inputType="number"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/CreatePollButton"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -245,6 +318,8 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:onClick="createPoll"
+                android:background="@drawable/applybutton"
+                android:textColor="#ffffff"
                 android:text="Create Poll"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
