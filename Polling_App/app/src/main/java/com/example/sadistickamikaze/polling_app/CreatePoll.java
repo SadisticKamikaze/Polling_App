@@ -1,6 +1,7 @@
 package com.example.sadistickamikaze.polling_app;
 
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,38 +16,64 @@ import android.widget.Spinner;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class CreatePoll extends AppCompatActivity {
+public class CreatePoll extends AppCompatActivity implements LocationListener{
     final DatabaseReference myref = FirebaseDatabase.getInstance().getReference().child("Polls");
     String dropdown;
     double longitude;
     double latitude;
     double distance;
 
+    @Override
+    public void onProviderEnabled(String provider){
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider){
+
+    }
+
+    @Override
+    public void onLocationChanged(Location location){
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle b){
+
+    }
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         String locationProvider = LocationManager.GPS_PROVIDER;
         String networkProvider = LocationManager.NETWORK_PROVIDER;
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
         longitude=0;
         latitude = 0;
         distance = 1000000000;
 
         setContentView(R.layout.activity_create_poll);
-        try {
-            Location location = locationManager.getLastKnownLocation(locationProvider);
-            Location location2 = locationManager.getLastKnownLocation(networkProvider);
-            if(location2 !=null){
-                longitude= location2.getLongitude();
-                latitude= location2.getLatitude();
+        if(locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            try {
+                Location location = locationManager.getLastKnownLocation(locationProvider);
+                Location location2 = locationManager.getLastKnownLocation(networkProvider);
+                Log.d("test", "provider");
+                if (location2 != null) {
+                    longitude = location2.getLongitude();
+                    latitude = location2.getLatitude();
+                }
+                if (location != null) {
+                    longitude = location.getLongitude();
+                    latitude = location.getLatitude();
+                }
+                Log.d("long", longitude+"");
+            } catch (SecurityException e) {
+                Log.d("Hey!", "Permission to access location denied, yo!");
+                finish();
             }
-            if (location !=null){
-                longitude= location.getLongitude();
-                latitude= location.getLatitude();
-            }
-        } catch (SecurityException e) {
-            Log.d("Hey!", "Permission to access location denied, yo!");
-            finish();
+        }
+        else{
+            Log.d("test", "no provider");
         }
 
 

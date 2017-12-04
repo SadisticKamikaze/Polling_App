@@ -79,21 +79,27 @@ public class MainActivity extends AppCompatActivity {
 
         myLong=0;
         myLat=0;
-
-        try {
-            Location location = locationManager.getLastKnownLocation(locationProvider);
-            Location location2 = locationManager.getLastKnownLocation(networkProvider);
-            if(location2 !=null){
-                myLong= location2.getLongitude();
-                myLat= location2.getLatitude();
+        if(locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            try {
+                Location location = locationManager.getLastKnownLocation(locationProvider);
+                Location location2 = locationManager.getLastKnownLocation(networkProvider);
+                Log.d("test", "provider");
+                if (location2 != null) {
+                    myLong = location2.getLongitude();
+                    myLat = location2.getLatitude();
+                }
+                if (location != null) {
+                    myLong = location.getLongitude();
+                    myLat = location.getLatitude();
+                }
+            } catch (SecurityException e) {
+                Log.d("Hey!", "Permission to access location denied, yo!");
+                finish();
             }
-            if (location !=null){
-                myLong= location.getLongitude();
-                myLat= location.getLatitude();
-            }
-        } catch (SecurityException e) {
-            Log.d("Hey!", "Permission to access location denied, yo!");
-            finish();
+        }
+        else{
+            Log.d("test", "no provider");
         }
 
         Button FilterButton = (Button)findViewById(R.id.FilterButton);
@@ -142,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
                                 String[] opt10names = getOpt10Names((Map<String, Object>) dataSnapshot.getValue());
                                 Double[] longitudes = getLongitudes((Map<String, Object>) dataSnapshot.getValue());
                                 Double[] latitudes = getLatitudes((Map<String, Object>) dataSnapshot.getValue());
+                                Double[] distances = getDistances((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt1PollCount = getOpt1PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt2PollCount = getOpt2PollCount((Map<String, Object>) dataSnapshot.getValue());
                                 Long[] opt3PollCount = getOpt3PollCount((Map<String, Object>) dataSnapshot.getValue());
@@ -159,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                                 LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                                 Context context = getApplicationContext();
                                 for(int i=0;i<names.length;i++){
-                                    if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i ])< myDist) { //if passwords match, make a button with the name of the poll
+                                    if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i])<= myDist&& distFrom(myLat,myLong,latitudes[i],longitudes[i])<= distances[i]) { //if passwords match, make a button with the name of the poll
                                         final Button pollButton = new Button(context);
                                         pollButton.setId(i);
                                         pollButton.setText(names[i]);
@@ -456,7 +463,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Double> distances = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            String temp = poll.get("longitude") + "";
+            String temp = poll.get("distance") + "";
             distances.add(Double.parseDouble(temp));
         }
         return distances.toArray(new Double[0]);
@@ -509,7 +516,7 @@ public class MainActivity extends AppCompatActivity {
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
-                            if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i ])< myDist) { //if passwords match, make a button with the name of the poll
+                            if(passwords[i].equals(password) && distFrom(myLat,myLong,latitudes[i],longitudes[i ]) < myDist && distFrom(myLat,myLong,latitudes[i],longitudes[i]) <= distances[i]) { //if passwords match, make a button with the name of the poll
                                 final Button pollButton = new Button(context);
                                 pollButton.setId(i);
                                 pollButton.setText(names[i]);
