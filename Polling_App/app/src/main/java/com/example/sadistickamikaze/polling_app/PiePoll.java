@@ -13,6 +13,7 @@ import android.view.Display;
 import android.view.View;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -22,6 +23,7 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,7 @@ public class PiePoll extends AppCompatActivity {
     public Description description;
     PieChart pieChart;
 
+
     public PiePoll() {
         yData = new ArrayList<>();
         xData = new ArrayList<>();
@@ -46,6 +49,7 @@ public class PiePoll extends AppCompatActivity {
         xEntrys = new ArrayList<>();
         colors = new ArrayList<>();
         description = new Description();
+
 
     }
 
@@ -98,6 +102,8 @@ public class PiePoll extends AppCompatActivity {
             yData.add((long) b.get("j"));
         }
 
+
+
         pollName = "TBD";
         description.setText("Question Name");
         description.setTextSize(16);
@@ -107,7 +113,9 @@ public class PiePoll extends AppCompatActivity {
 
         pieChart.setNoDataText("No Votes have been recorded");
         pieChart.setTransparentCircleAlpha(0);
-        pieChart.setHoleRadius(15);
+        pieChart.setHoleRadius(31);
+        pieChart.setHoleColor(Color.WHITE);
+        pieChart.setTransparentCircleRadius(20);
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelTextSize(20);
         pieChart.setDescription(description);
@@ -120,6 +128,7 @@ public class PiePoll extends AppCompatActivity {
 
 
         Log.d("something", yData.toString());
+        pieChart.animateY(1000, Easing.EasingOption.EaseInOutCirc);
         addDataset();
 
         pieChart.setOnChartValueSelectedListener(new OnChartValueSelectedListener() {
@@ -157,64 +166,24 @@ public class PiePoll extends AppCompatActivity {
 
         // Create data set
         PieDataSet pieDataSet = new PieDataSet(yEntrys, "Votes");
-        pieDataSet.setSliceSpace(2);
+        pieDataSet.setSliceSpace(4);
+        pieDataSet.setSelectionShift(5f);
         pieDataSet.setValueTextSize(20);
-
+        //pieDataSet.setValueTextColor(0);
 
         // Add colors
-        colors.add(Color.GREEN);
-        colors.add(Color.RED);
-        colors.add(Color.BLACK);
-        colors.add(Color.GRAY);
-        colors.add(Color.MAGENTA);
-        colors.add(Color.YELLOW);
-        colors.add(Color.BLUE);
-        colors.add(Color.CYAN);
-        colors.add(Color.DKGRAY);
-        colors.add(Color.LTGRAY);
-        /*
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        if ( ==){
-            colors.add(Color.rgb());
-        }
-
-        */
+        colors.add(Color.rgb(0,204 ,0)); // Dark Green
+        colors.add(Color.rgb(142,0 ,204)); // Purple
+        colors.add(Color.rgb(102,255 ,255)); //Cyan
+        colors.add(Color.rgb(255,153 ,102)); // Light orange
+        colors.add(Color.rgb(255,153 ,204)); //Pink
+        colors.add(Color.rgb(255,51 ,0)); //red
+        colors.add(Color.rgb(204,153 ,0)); // Tan
+        colors.add(Color.rgb(102,153 ,255)); //Blue
+        colors.add(Color.rgb(230,0 ,115)); //Dark pink
+        colors.add(Color.rgb(0,102 ,204)); //Blue
         pieDataSet.setColors(colors);
+
 
         //add legend to chart
         Legend legend = pieChart.getLegend();
@@ -225,6 +194,7 @@ public class PiePoll extends AppCompatActivity {
         // Create Pie data object
         PieData pieData = new PieData(pieDataSet);
         pieChart.setData(pieData);
+
         pieChart.invalidate();
 
     }
