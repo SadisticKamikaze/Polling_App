@@ -104,18 +104,18 @@ public class PiePoll extends AppCompatActivity {
 
 
 
-        pollName = "TBD";
-        description.setText("Question Name");
+        pollName = (String) b.get("question");
+        description.setText(pollName);
         description.setTextSize(16);
         description.setPosition(500,50);
+        description.setTextColor(Color.rgb(255,255,255));
         centerName = "Some Center name";
         pieChart.setRotationEnabled(true);
-
         pieChart.setNoDataText("No Votes have been recorded");
         pieChart.setTransparentCircleAlpha(0);
         pieChart.setHoleRadius(31);
-        pieChart.setHoleColor(Color.WHITE);
-        pieChart.setTransparentCircleRadius(20);
+        pieChart.setHoleColor(Color.TRANSPARENT);
+        pieChart.setTransparentCircleRadius(30);
         pieChart.setDrawEntryLabels(true);
         pieChart.setEntryLabelTextSize(20);
         pieChart.setDescription(description);
@@ -169,8 +169,7 @@ public class PiePoll extends AppCompatActivity {
         pieDataSet.setSliceSpace(4);
         pieDataSet.setSelectionShift(5f);
         pieDataSet.setValueTextSize(20);
-        //pieDataSet.setValueTextColor(0);
-
+        pieDataSet.setValueTextColor(Color.rgb(255,255,255));
         // Add colors
         colors.add(Color.rgb(0,204 ,0)); // Dark Green
         colors.add(Color.rgb(142,0 ,204)); // Purple
