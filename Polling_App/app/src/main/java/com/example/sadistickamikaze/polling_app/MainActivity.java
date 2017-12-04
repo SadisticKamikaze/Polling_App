@@ -29,7 +29,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
     static String password;
     private TextView mTextMessage;
-    static double myDist=1000000000;
+    static double myDist = 1000000000;
     double myLong=0;
     double myLat=0;
 

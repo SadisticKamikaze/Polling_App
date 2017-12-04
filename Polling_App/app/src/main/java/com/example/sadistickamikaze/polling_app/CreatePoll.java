@@ -29,8 +29,8 @@ public class CreatePoll extends AppCompatActivity {
         LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
         longitude=0;
-        latitude=0;
-        distance=10000000;
+        latitude = 0;
+        distance = 1000000000;
 
         setContentView(R.layout.activity_create_poll);
         try {
@@ -187,11 +187,13 @@ public class CreatePoll extends AppCompatActivity {
             EditText pollquestion = (EditText)findViewById(R.id.question);
             EditText option1answer = (EditText)findViewById(R.id.option1answer);
             EditText option2answer = (EditText)findViewById(R.id.option2answer);
+            EditText distanceanswer = (EditText)findViewById(R.id.distanceanswer);
 
             @Override
             public void onClick(View v) {
                 String password="";
                 String delete="";
+                String d = distanceanswer.getText().toString();
                 String string = pollquestion.getText().toString();
                 String stringoption1 = ddoption1.getText().toString();
                 String stringoption2 = ddoption2.getText().toString();
@@ -233,6 +235,9 @@ public class CreatePoll extends AppCompatActivity {
                     myref.child(string).child("delete").setValue("");
                     if (delete.matches("") == false) {
                         myref.child(string).child("delete").setValue(delete);
+                    }
+                    if (d.matches("") == false){
+                        distance = Double.parseDouble(d);
                     }
                     myref.child(string).child("distance").setValue(distance);
                     myref.child(string).child("opt1names").setValue("");
