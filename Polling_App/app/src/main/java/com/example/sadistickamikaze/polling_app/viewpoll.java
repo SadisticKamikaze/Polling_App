@@ -284,6 +284,7 @@ public class viewpoll extends AppCompatActivity {
         intent.putExtra("h",opt8);
         intent.putExtra("i",opt9);
         intent.putExtra("j",opt10);
+        intent.putExtra("question", name);
         intent.putExtra("names", info);
         intent.putExtra("count",optCount);
         startActivity(intent);
