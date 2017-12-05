@@ -30,8 +30,16 @@ public class viewpoll extends AppCompatActivity {
     Long opt10;
     String[] info;
     String del;
-    String yesnames;
-    String nonames;
+    String opt1names;
+    String opt2names;
+    String opt3names;
+    String opt4names;
+    String opt5names;
+    String opt6names;
+    String opt7names;
+    String opt8names;
+    String opt9names;
+    String opt10names;
     int optCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,12 +124,12 @@ public class viewpoll extends AppCompatActivity {
 
 
 
-       /* yesnames = (String)b.get(""+n+"");
-        nonames = (String)b.get(""+o+"");
-        if(yesnames!=null && yesnames.matches("")==false)
-            yesVotes.setText("Yes: "+ yesnames);
-        if(nonames!=null && nonames.matches("")==false)
-            noVotes.setText("No: "+ nonames);*/
+       /* opt1names = (String)b.get(""+n+"");
+        opt2names = (String)b.get(""+o+"");
+        if(opt1names!=null && opt1names.matches("")==false)
+            yesVotes.setText("Yes: "+ opt1names);
+        if(opt2names!=null && opt2names.matches("")==false)
+            noVotes.setText("No: "+ opt2names);*/
         option1buttonname.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -129,8 +137,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt1ans").setValue(opt1+Long.valueOf(1));  //increments poll value here
                 if(voterID!=null && voterID.matches("")==false&&voterID.matches("Name")==false){
-                    yesnames = yesnames + " "+voterID;
-                    myref.child(name).child("yesnames").setValue(yesnames);
+                    opt1names = opt1names + " "+voterID;
+                    myref.child(name).child("opt1names").setValue(opt1names);
                 }
                 finish();
             }
@@ -142,8 +150,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt2ans").setValue(opt2+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt2names = opt2names + " "+voterID;
+                    myref.child(name).child("opt2names").setValue(opt2names);
                 }
                 finish();
             }
@@ -155,8 +163,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt3ans").setValue(opt3+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt3names = opt3names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt3names);
                 }
                 finish();
             }
@@ -168,8 +176,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt4ans").setValue(opt4+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt4names = opt4names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt4names);
                 }
                 finish();
             }
@@ -181,8 +189,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt5ans").setValue(opt5+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt5names = opt5names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt5names);
                 }
                 finish();
             }
@@ -194,8 +202,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt6ans").setValue(opt6+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt6names = opt6names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt6names);
                 }
                 finish();
             }
@@ -207,8 +215,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt7ans").setValue(opt7+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt7names = opt7names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt7names);
                 }
                 finish();
             }
@@ -220,8 +228,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt8ans").setValue(opt8+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt8names = opt8names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt8names);
                 }
                 finish();
             }
@@ -233,8 +241,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt9ans").setValue(opt9+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt9names = opt9names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt9names);
                 }
                 finish();
             }
@@ -246,8 +254,8 @@ public class viewpoll extends AppCompatActivity {
                 String voterID=voterIDField.getText().toString();
                 myref.child(name).child("opt10ans").setValue(opt10+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
-                    nonames = nonames + " "+voterID;
-                    myref.child(name).child("nonames").setValue(nonames);
+                    opt10names = opt10names + " "+voterID;
+                    myref.child(name).child("nonames").setValue(opt10names);
                 }
                 finish();
             }

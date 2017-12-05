@@ -478,7 +478,34 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-
+        myLong=0;
+        myLat=0;
+        String locationProvider = LocationManager.GPS_PROVIDER;
+        String networkProvider = LocationManager.NETWORK_PROVIDER;
+        LocationManager locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        if(locationManager
+                .isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            try {
+                Location location = locationManager.getLastKnownLocation(locationProvider);
+                Location location2 = locationManager.getLastKnownLocation(networkProvider);
+                Log.d("test", "provider");
+                if (location2 != null) {
+                    myLong = location2.getLongitude();
+                    myLat = location2.getLatitude();
+                }
+                if (location != null) {
+                    myLong = location.getLongitude();
+                    myLat = location.getLatitude();
+                }
+                Log.d("location", myLong+"");
+            } catch (SecurityException e) {
+                Log.d("Hey!", "Permission to access location denied, yo!");
+                finish();
+            }
+        }
+        else{
+            Log.d("test", "no provider");
+        }
         final DatabaseReference pollReference= FirebaseDatabase.getInstance().getReference().child("Polls");
         pollReference.addListenerForSingleValueEvent(
                 new ValueEventListener() {
