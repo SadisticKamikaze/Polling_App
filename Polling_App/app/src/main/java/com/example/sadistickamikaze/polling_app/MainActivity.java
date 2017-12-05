@@ -423,20 +423,84 @@ public class MainActivity extends AppCompatActivity {
         }
         return (String[])pollList.toArray(new String[0]);
     }
-    private String[] getYesNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+    private String[] getOpt1Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
         ArrayList<String> yesNames = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            yesNames.add((String)poll.get("yesnames"));
+            yesNames.add((String)poll.get("opt1names"));
         }
         return (String[])yesNames.toArray(new String[0]);
     }
 
-    private String[] getNoNames(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+    private String[] getOpt2Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
         ArrayList<String> noNames = new ArrayList<>();
         for (Map.Entry<String, Object> entry : polls.entrySet()) {
             Map poll = (Map) entry.getValue();
-            noNames.add((String)poll.get("nonames"));
+            noNames.add((String)poll.get("opt2names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt3Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt3names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt5Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt5names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt4Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt4names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt6Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt6names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt7Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt7names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt8Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt8names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt9Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt9names"));
+        }
+        return (String[])noNames.toArray(new String[0]);
+    }
+    private String[] getOpt10Voters(Map<String, Object> polls){ //puts names into a String array by iterating though all polls
+        ArrayList<String> noNames = new ArrayList<>();
+        for (Map.Entry<String, Object> entry : polls.entrySet()) {
+            Map poll = (Map) entry.getValue();
+            noNames.add((String)poll.get("opt10names"));
         }
         return (String[])noNames.toArray(new String[0]);
     }
@@ -538,8 +602,16 @@ public class MainActivity extends AppCompatActivity {
                         Long[] opt10PollCount = getOpt10PollCount((Map<String, Object>) dataSnapshot.getValue());
                         String[] passwords = getPasswords((Map<String, Object>) dataSnapshot.getValue());
                         String[] delete = getDeletePasswords((Map<String,Object>) dataSnapshot.getValue());
-                        //String[] yesnames = getOpt1Names((Map<String, Object>) dataSnapshot.getValue());
-                        //String[] nonames = getNoNames((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt1voters = getOpt1Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt2voters = getOpt2Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt3voters = getOpt3Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt4voters = getOpt4Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt5voters = getOpt5Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt6voters = getOpt6Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt7voters = getOpt7Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt8voters = getOpt8Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt9voters = getOpt9Voters((Map<String, Object>) dataSnapshot.getValue());
+                        String[] opt10voters = getOpt10Voters((Map<String, Object>) dataSnapshot.getValue());
                         LinearLayout layout = (LinearLayout)findViewById((R.id.ButtonLayout));
                         Context context = getApplicationContext();
                         for(int i=0;i<names.length;i++){
@@ -571,6 +643,16 @@ public class MainActivity extends AppCompatActivity {
                                 final long opt8count = opt8PollCount[i];
                                 final long opt9count = opt9PollCount[i];
                                 final long opt10count = opt10PollCount[i];
+                                final String opt1voter = opt1voters[i];
+                                final String opt2voter = opt2voters[i];
+                                final String opt3voter = opt3voters[i];
+                                final String opt4voter = opt4voters[i];
+                                final String opt5voter = opt5voters[i];
+                                final String opt6voter = opt6voters[i];
+                                final String opt7voter = opt7voters[i];
+                                final String opt8voter = opt8voters[i];
+                                final String opt9voter = opt9voters[i];
+                                final String opt10voter = opt10voters[i];
                                 final String del = delete[i];
                                 pollButton.setOnClickListener(new View.OnClickListener() {
                                     @Override
@@ -588,6 +670,16 @@ public class MainActivity extends AppCompatActivity {
                                         startIntent.putExtra("opt9info", opt9name+": "+Integer.toString((int)opt9count));
                                         startIntent.putExtra("opt10info", opt10name+": "+Integer.toString((int)opt10count));
                                         startIntent.putExtra("delPass", del);
+                                        startIntent.putExtra("opt1voters", opt1voter);
+                                        startIntent.putExtra("opt2voters", opt2voter);
+                                        startIntent.putExtra("opt3voters", opt3voter);
+                                        startIntent.putExtra("opt4voters", opt4voter);
+                                        startIntent.putExtra("opt5voters", opt5voter);
+                                        startIntent.putExtra("opt6voters", opt6voter);
+                                        startIntent.putExtra("opt7voters", opt7voter);
+                                        startIntent.putExtra("opt8voters", opt8voter);
+                                        startIntent.putExtra("opt9voters", opt9voter);
+                                        startIntent.putExtra("opt10voters", opt10voter);
                                         //startIntent.putExtra(""+n+"", yesname);
                                         //startIntent.putExtra(""+o+"", noname);
                                         startActivity(startIntent);
