@@ -298,6 +298,10 @@ public class viewpoll extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void viewVoters(View view){
+        Intent intent = new Intent(getApplicationContext(), ViewVoters.class);
+        startActivity(intent);
+    }
 
 
 }
