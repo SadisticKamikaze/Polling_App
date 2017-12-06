@@ -199,7 +199,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt3ans").setValue(opt3+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt3names = opt3names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt3names);
+                    myref.child(name).child("opt3names").setValue(opt3names);
                 }
                 finish();
             }
@@ -212,7 +212,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt4ans").setValue(opt4+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt4names = opt4names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt4names);
+                    myref.child(name).child("opt4names").setValue(opt4names);
                 }
                 finish();
             }
@@ -225,7 +225,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt5ans").setValue(opt5+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt5names = opt5names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt5names);
+                    myref.child(name).child("opt5names").setValue(opt5names);
                 }
                 finish();
             }
@@ -238,7 +238,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt6ans").setValue(opt6+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt6names = opt6names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt6names);
+                    myref.child(name).child("opt6names").setValue(opt6names);
                 }
                 finish();
             }
@@ -251,7 +251,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt7ans").setValue(opt7+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt7names = opt7names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt7names);
+                    myref.child(name).child("opt7names").setValue(opt7names);
                 }
                 finish();
             }
@@ -264,7 +264,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt8ans").setValue(opt8+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt8names = opt8names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt8names);
+                    myref.child(name).child("opt8names").setValue(opt8names);
                 }
                 finish();
             }
@@ -277,7 +277,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt9ans").setValue(opt9+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt9names = opt9names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt9names);
+                    myref.child(name).child("opt9names").setValue(opt9names);
                 }
                 finish();
             }
@@ -290,7 +290,7 @@ public class viewpoll extends AppCompatActivity {
                 myref.child(name).child("opt10ans").setValue(opt10+Long.valueOf(1));
                 if(voterID!=null && voterID.matches("")==false && voterID.matches("Name")==false){
                     opt10names = opt10names + " "+voterID;
-                    myref.child(name).child("nonames").setValue(opt10names);
+                    myref.child(name).child("opt10names").setValue(opt10names);
                 }
                 finish();
             }
@@ -339,60 +339,62 @@ public class viewpoll extends AppCompatActivity {
             intent.putExtra("opt1",option1buttonname.getText());
         else
             intent.putExtra("opt1",option1buttonname.getText() + "; Names = "+ opt1names);
+
         if(opt3names==null || opt3names.equals(""))
             intent.putExtra("opt2",option2buttonname.getText());
         else
             intent.putExtra("opt2",option2buttonname.getText() + "; Names = "+ opt2names);
-        if(option3buttonname.getText().equals(": 0") == false && opt3names!=null)
+
+        if(option3buttonname.getText().equals(": 0") == false && opt3names!=null && !opt3names.equals(""))
             intent.putExtra("opt3",option3buttonname.getText() + "; Names = "+ opt3names);
         else if(opt3names==null || opt3names.equals(""))
             intent.putExtra("opt3",option3buttonname.getText());
         else
             intent.putExtra("opt3","NONE");
 
-        if(option4buttonname.getText().equals(": 0") == false && opt4names!=null)
+        if(option4buttonname.getText().equals(": 0") == false && opt4names!=null && !opt4names.equals(""))
             intent.putExtra("opt4",option4buttonname.getText() + "; Names = "+ opt4names);
         else if(opt4names==null || opt4names.equals(""))
             intent.putExtra("opt4",option4buttonname.getText());
         else
             intent.putExtra("opt4","NONE");
 
-        if(option5buttonname.getText().equals(": 0") == false && opt5names!=null)
+        if(option5buttonname.getText().equals(": 0") == false && opt5names!=null  && !opt5names.equals(""))
             intent.putExtra("opt5",option5buttonname.getText() + "; Names = "+ opt5names);
         else if(opt5names==null || opt5names.equals(""))
             intent.putExtra("opt5",option5buttonname.getText());
         else
             intent.putExtra("opt5","NONE");
 
-        if(option6buttonname.getText().equals(": 0") == false && opt6names!=null)
+        if(option6buttonname.getText().equals(": 0") == false && opt6names!=null && !opt6names.equals(""))
             intent.putExtra("opt6",option6buttonname.getText() + "; Names = "+ opt6names);
         else if(opt6names==null || opt6names.equals(""))
             intent.putExtra("opt6",option6buttonname.getText());
         else
             intent.putExtra("opt6","NONE");
 
-        if(option7buttonname.getText().equals(": 0") == false && opt7names!=null)
+        if(option7buttonname.getText().equals(": 0") == false && opt7names!=null && !opt7names.equals(""))
             intent.putExtra("opt7",option7buttonname.getText() + "; Names = "+ opt7names);
         else if(opt7names==null || opt7names.equals(""))
             intent.putExtra("opt7",option7buttonname.getText());
         else
             intent.putExtra("opt7","NONE");
 
-        if(option8buttonname.getText().equals(": 0") == false && opt8names!=null)
+        if(option8buttonname.getText().equals(": 0") == false && opt8names!=null  && !opt8names.equals(""))
             intent.putExtra("opt8",option8buttonname.getText() + "; Names = "+ opt8names);
         else if(opt8names==null || opt8names.equals(""))
             intent.putExtra("opt8",option8buttonname.getText());
         else
             intent.putExtra("opt8","NONE");
 
-        if(option9buttonname.getText().equals(": 0") == false && opt9names!=null)
+        if(option9buttonname.getText().equals(": 0") == false && opt9names!=null  && !opt9names.equals(""))
             intent.putExtra("opt9",option9buttonname.getText() + "; Names = "+ opt9names);
         else if(opt9names==null || opt9names.equals(""))
             intent.putExtra("opt9",option9buttonname.getText());
         else
             intent.putExtra("opt9","NONE");
 
-        if(option10buttonname.getText().equals(": 0") == false && opt10names!=null)
+        if(option10buttonname.getText().equals(": 0") == false && opt10names!=null  && !opt10names.equals(""))
             intent.putExtra("opt10",option10buttonname.getText() + "; Names = "+ opt10names);
         else if(opt10names==null || opt10names.equals(""))
             intent.putExtra("opt10",option10buttonname.getText());

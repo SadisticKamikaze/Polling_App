@@ -255,6 +255,9 @@ public class CreatePoll extends AppCompatActivity implements LocationListener{
                     for (int i = 1; i < 11; i++) {
                         myref.child(string).child("opt" + i + "ans").setValue(0);
                     }
+                    for(int i =1; i<11;i++){
+                        myref.child(string).child("opt"+i+"names").setValue("");
+                    }
                     myref.child(string).child("password").setValue("");
                     if (password.matches("") == false) {
                         myref.child(string).child("password").setValue(password);
