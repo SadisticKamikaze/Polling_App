@@ -40,6 +40,27 @@ public class viewpoll extends AppCompatActivity {
     String opt8names;
     String opt9names;
     String opt10names;
+    String opt1name;
+    String opt2name;
+    String opt3name;
+    String opt4name;
+    String opt5name;
+    String opt6name;
+    String opt7name;
+    String opt8name;
+    String opt9name;
+    String opt10name;
+    TextView questionname;
+    TextView option1buttonname;
+    TextView option2buttonname;
+    TextView option3buttonname;
+    TextView option4buttonname;
+    TextView option5buttonname;
+    TextView option6buttonname;
+    TextView option7buttonname;
+    TextView option8buttonname;
+    TextView option9buttonname;
+    TextView option10buttonname;
     int optCount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,17 +68,17 @@ public class viewpoll extends AppCompatActivity {
         info= new String[10];
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_viewpoll);
-        TextView questionname = (TextView) findViewById(R.id.questiontitle);
-        TextView option1buttonname = (TextView) findViewById(R.id.option1button);
-        TextView option2buttonname = (TextView) findViewById(R.id.option2button);
-        TextView option3buttonname = (TextView) findViewById(R.id.option3button);
-        TextView option4buttonname = (TextView) findViewById(R.id.option4button);
-        TextView option5buttonname = (TextView) findViewById(R.id.option5button);
-        TextView option6buttonname = (TextView) findViewById(R.id.option6button);
-        TextView option7buttonname = (TextView) findViewById(R.id.option7button);
-        TextView option8buttonname = (TextView) findViewById(R.id.option8button);
-        TextView option9buttonname = (TextView) findViewById(R.id.option9button);
-        TextView option10buttonname = (TextView) findViewById(R.id.option10button);
+        questionname = (TextView) findViewById(R.id.questiontitle);
+        option1buttonname = (TextView) findViewById(R.id.option1button);
+        option2buttonname = (TextView) findViewById(R.id.option2button);
+        option3buttonname = (TextView) findViewById(R.id.option3button);
+        option4buttonname = (TextView) findViewById(R.id.option4button);
+        option5buttonname = (TextView) findViewById(R.id.option5button);
+        option6buttonname = (TextView) findViewById(R.id.option6button);
+        option7buttonname = (TextView) findViewById(R.id.option7button);
+        option8buttonname = (TextView) findViewById(R.id.option8button);
+        option9buttonname = (TextView) findViewById(R.id.option9button);
+        option10buttonname = (TextView) findViewById(R.id.option10button);
         final EditText deletepassword = (EditText) findViewById(R.id.DeletePassword);
         Intent iin= getIntent();
         Bundle b = iin.getExtras();
@@ -69,6 +90,16 @@ public class viewpoll extends AppCompatActivity {
         questionname.setText((String)b.get("name"));
         name=(String)b.get("name");
         option1buttonname.setText((String)b.get("opt1info"));
+        opt1name = (String)b.get("opt1info");
+        opt2name = (String)b.get("opt1info");
+        opt3name = (String)b.get("opt1info");
+        opt4name = (String)b.get("opt1info");
+        opt5name = (String)b.get("opt1info");
+        opt6name = (String)b.get("opt1info");
+        opt7name =(String)b.get("opt1info");
+        opt8name = (String)b.get("opt1info");
+        opt9name =(String)b.get("opt1info");
+        opt10name=(String)b.get("opt1info");
         opt1= Long.parseLong(((String)b.get("opt1info")).substring(((String)b.get("opt1info")).indexOf(":")+2)); //strips the option name and leaves numbers, then convert into Long
         option2buttonname.setText((String)b.get("opt2info"));
         opt2= Long.parseLong(((String)b.get("opt2info")).substring(((String)b.get("opt2info")).indexOf(":")+2));
@@ -124,12 +155,16 @@ public class viewpoll extends AppCompatActivity {
 
 
 
-       /* opt1names = (String)b.get(""+n+"");
-        opt2names = (String)b.get(""+o+"");
-        if(opt1names!=null && opt1names.matches("")==false)
-            yesVotes.setText("Yes: "+ opt1names);
-        if(opt2names!=null && opt2names.matches("")==false)
-            noVotes.setText("No: "+ opt2names);*/
+        opt1names = (String)b.get("opt1voters");
+        opt2names = (String)b.get("opt2voters");
+        opt3names = (String)b.get("opt3voters");
+        opt4names = (String)b.get("opt4voters");
+        opt5names = (String)b.get("opt5voters");
+        opt6names = (String)b.get("opt6voters");
+        opt7names = (String)b.get("opt7voters");
+        opt8names = (String)b.get("opt8voters");
+        opt9names = (String)b.get("opt9voters");
+        opt10names = (String)b.get("opt10voters");
         option1buttonname.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -300,6 +335,70 @@ public class viewpoll extends AppCompatActivity {
 
     public void viewVoters(View view){
         Intent intent = new Intent(getApplicationContext(), ViewVoters.class);
+        if(opt1names==null || opt1names.equals(""))
+            intent.putExtra("opt1",option1buttonname.getText());
+        else
+            intent.putExtra("opt1",option1buttonname.getText() + "; Names = "+ opt1names);
+        if(opt3names==null || opt3names.equals(""))
+            intent.putExtra("opt2",option2buttonname.getText());
+        else
+            intent.putExtra("opt2",option2buttonname.getText() + "; Names = "+ opt2names);
+        if(option3buttonname.getText().equals(": 0") == false && opt3names!=null)
+            intent.putExtra("opt3",option3buttonname.getText() + "; Names = "+ opt3names);
+        else if(opt3names==null || opt3names.equals(""))
+            intent.putExtra("opt3",option3buttonname.getText());
+        else
+            intent.putExtra("opt3","NONE");
+
+        if(option4buttonname.getText().equals(": 0") == false && opt4names!=null)
+            intent.putExtra("opt4",option4buttonname.getText() + "; Names = "+ opt4names);
+        else if(opt4names==null || opt4names.equals(""))
+            intent.putExtra("opt4",option4buttonname.getText());
+        else
+            intent.putExtra("opt4","NONE");
+
+        if(option5buttonname.getText().equals(": 0") == false && opt5names!=null)
+            intent.putExtra("opt5",option5buttonname.getText() + "; Names = "+ opt5names);
+        else if(opt5names==null || opt5names.equals(""))
+            intent.putExtra("opt5",option5buttonname.getText());
+        else
+            intent.putExtra("opt5","NONE");
+
+        if(option6buttonname.getText().equals(": 0") == false && opt6names!=null)
+            intent.putExtra("opt6",option6buttonname.getText() + "; Names = "+ opt6names);
+        else if(opt6names==null || opt6names.equals(""))
+            intent.putExtra("opt6",option6buttonname.getText());
+        else
+            intent.putExtra("opt6","NONE");
+
+        if(option7buttonname.getText().equals(": 0") == false && opt7names!=null)
+            intent.putExtra("opt7",option7buttonname.getText() + "; Names = "+ opt7names);
+        else if(opt7names==null || opt7names.equals(""))
+            intent.putExtra("opt7",option7buttonname.getText());
+        else
+            intent.putExtra("opt7","NONE");
+
+        if(option8buttonname.getText().equals(": 0") == false && opt8names!=null)
+            intent.putExtra("opt8",option8buttonname.getText() + "; Names = "+ opt8names);
+        else if(opt8names==null || opt8names.equals(""))
+            intent.putExtra("opt8",option8buttonname.getText());
+        else
+            intent.putExtra("opt8","NONE");
+
+        if(option9buttonname.getText().equals(": 0") == false && opt9names!=null)
+            intent.putExtra("opt9",option9buttonname.getText() + "; Names = "+ opt9names);
+        else if(opt9names==null || opt9names.equals(""))
+            intent.putExtra("opt9",option9buttonname.getText());
+        else
+            intent.putExtra("opt9","NONE");
+
+        if(option10buttonname.getText().equals(": 0") == false && opt10names!=null)
+            intent.putExtra("opt10",option10buttonname.getText() + "; Names = "+ opt10names);
+        else if(opt10names==null || opt10names.equals(""))
+            intent.putExtra("opt10",option10buttonname.getText());
+        else
+            intent.putExtra("opt10","NONE");
+
         startActivity(intent);
     }
 
